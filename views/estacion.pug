@@ -1,0 +1,66 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+    title
+    link(rel='stylesheet', href='/main.css')
+    link(rel='stylesheet', href='/archivos.js')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
+  body
+    .container(style='margin-top: -50px; width: 1100px;')
+      .row
+        .form-group(style='margin-top:100px; margin-left:-90px;')
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Estaciones
+          .col-sm-10(style='top: -20px;')
+            select.form-control
+              option
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+          #contacts
+            table.table.table-bordered
+              thead
+                tr
+                  th.sort(data-sort='id') ID
+                  th.sort(data-sort='name') Nombre
+                  th.sort(data-sort='ubicacion') Ubicacion
+                  th.sort(data-sort='modelo') Modelo
+                  th.sort(data-sort='inicioactividad') Inicio Actividad
+                  th.sort(data-sort='marca') Marca
+                  th.sort(data-sort='estado') Estado
+              tbody
+                for estacion in data.estaciones
+                  tr
+                    for propiedad in estacion
+                      td= propiedad
+                    td.edit
+                      button.edit-item-btn.btn.btn-primary Editar
+                    td.remove
+                      button.remove-item-btn.btn.btn-danger Borrar
+          .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
+            h2(style='text-align:center;') AÑADIR NUEVA ESTACION
+          form(action='url', method='POST')
+            .form-group(style='')
+              label(for='', style='margin-right:20px;') Estacion_Id
+              input.form-control(type='', id='', placeholder='')
+            .form-group
+              label(for='') Ubicacion
+              input.form-control(type='', id='', placeholder='')
+            .form-group
+              label(for='') Modelo
+              input.form-control(type='', id='', placeholder='')
+            .form-group
+              label(for='') Inicio Actividad
+              input.form-control(type='', id='', placeholder='')
+            .form-group
+              label(for='') Marca
+              input.form-control(type='', id='', placeholder='')
+            .form-group
+              label(for='') Estado
+              input.form-control(type='', id='', placeholder='')
+          .center-block(style=' text-align: center;')
+            button.btn.btn-info(type='submit') Añadir Estacion

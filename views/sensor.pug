@@ -1,0 +1,93 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+    title
+    link(rel='stylesheet', href='/main.css')
+    link(rel='stylesheet', href='/archivos.js')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+  body
+    .container(style='margin-top: 80px;')
+      .row
+        .form-group(style='margin-top:100px; margin-left: 70px;')
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 110px; top: -93px;') Estaciones
+          .col-sm-10(style='top: -20px; margin-top:-75px')
+            select.form-control
+              option
+              option 1
+              option 2
+              option 3
+              option 4
+              option 5
+          #contacts
+            table.table.table-bordered
+              thead
+                tr
+                  th.sort(data-sort='id') ID
+                  th.sort(data-sort='estacion_id') Estacion_Id
+                  th.sort(data-sort='nombre') Nombre
+                  th.sort(data-sort='unidad') Unidad
+                  th.sort(data-sort='descripcion') Descripcion
+              tbody
+                tr
+                  td.id(style='display:none;') 1
+                  td.estacion_id
+                  td.nombre
+                  td.unidad
+                  td.descripcion
+                  td
+                  td.edit
+                    button.edit-item-btn.btn.btn-primary Editar
+                  td.remove
+                    button.remove-item-btn.btn.btn-danger Borrar
+                tr
+                  td.id(style='display:none;') 2
+                  td.estacion_id
+                  td.nombre
+                  td.unidad
+                  td.descripcion
+                  td
+                  td.edit
+                    button.edit-item-btn.btn.btn-primary Editar
+                  td.remove
+                    button.remove-item-btn.btn.btn-danger Borrar
+                tr
+                  td.id(style='display:none;') 3
+                  td.estacion_id
+                  td.nombre
+                  td.unidad
+                  td.descripcion
+                  td
+                  td.edit
+                    button.edit-item-btn.btn.btn-primary Editar
+                  td.remove
+                    button.remove-item-btn.btn.btn-danger Borrar
+                tr
+                  td.id(style='display:none;') 4
+                  td.estacion_id
+                  td.nombre
+                  td.modelo
+                  td.unidad
+                  td.descripcion
+                  td.edit
+                    button.edit-item-btn.btn.btn-primary Editar
+                  td.remove
+                    button.remove-item-btn.btn.btn-danger Borrar
+          .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
+            h2(style='text-align:center;') AÑADIR NUEVA ESTACION
+          form(action='url', method='POST')
+            .form-group
+              label(for='exampleInputEmail1') Estacion_Id
+              input.form-control(type='email', id='', placeholder='')
+            .form-group
+              label(for='exampleInputPassword1') Nombre
+              input.form-control(type='password', id='', placeholder='')
+            .form-group
+              label(for='exampleInputPassword1') Unidad
+              input.form-control(type='password', id='', placeholder='')
+            .form-group
+              label(for='exampleInputPassword1') Descripcion
+              input.form-control(type='password', id='', placeholder='')
+          .center-block(style=' text-align: center;')
+            button.btn.btn-info(type='submit') Añadir Estacion

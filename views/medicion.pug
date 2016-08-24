@@ -1,0 +1,73 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+    title
+    link(rel='stylesheet', href='css/main.css')
+    link(rel='stylesheet', href='js/archivos.js')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+  body
+    .container
+      .row
+        .col-sm-3(style='float: right; left: -323px; margin-top: 65px; width: 50%;')
+          .well.well-sm
+            form(action='DateTest.html')
+              label(for='FromDate') Ingresa Fecha:
+              input#FromDate.date(type='date', name='FromDate', value='11/08/2012')
+              hr
+              input#btnSubmit.btn.btn-success(type='submit', name='btnSubmit', value='Buscar', style='margin-top: -8px; margin-left: 225px;')
+        form(action='url', method='')
+          .form-group
+            label(for='exampleInputEmail1', style='margin-top:210px;') Timestamp
+            input.form-control(type='email', id='', placeholder='')
+          .form-group
+            label(for='exampleInputPassword1') Valor
+            input.form-control(type='password', id='', placeholder='')
+          .form-group
+            label(for='exampleInputPassword1') Unidad
+            input.form-control(type='password', id='', placeholder='')
+          .form-group
+            label(for='exampleInputPassword1') Descripcion
+            input.form-control(type='password', id='', placeholder='')
+          .form-group
+            label(for='exampleInputPassword1') Sensor_ID
+            input.form-control(type='password', id='', placeholder='')
+      table.table.table-bordered.table-inverse(style='margin-top:30px;')
+        thead
+          tr
+            th
+            th Timestamp
+            th Valor
+            th Unidad
+            th Descripcion
+            th Sensor_ID
+        tbody
+          tr
+            th(scope='row') 1
+            td
+            td
+            td
+            td
+            td
+          tr
+            th(scope='row') 2
+            td
+            td
+            td
+            td
+            td
+          tr
+            th(scope='row') 3
+            td
+            td
+            td
+            td
+            td
+          tr
+            th(scope='row') 4
+            td
+            td
+            td
+            td
+            td
