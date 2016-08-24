@@ -5,6 +5,7 @@ var pug = require('pug');
 var bodyParser = require('body-parser');
 app.set('view engine', 'pug');
 app.use(express.static(__dirname))
+var requestify = require('requestify');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -167,21 +168,20 @@ app.get('/estacion/sensor', function(req, res){
 	});
 });
 
-app.get('/estacion/', function(req, res){
-	listarEstacion(function(req, data){
-		listarSensor(function(err, data){
-			listarMedicion(function (err, data){
-				data = {
+app.get('/estacion', function(req, res){
+	requestify.get('http://bapocbulkserver.azurewebsites.net/api1/stations/')
+  .then(function(response) {
+      // Get the response body (JSON parsed or jQuery object for XMLs)
+      estaciones = response.getBody();
+			data = {
 					data : {
 					estaciones : estaciones,
 					sensores : sensores,
 					mediciones : mediciones
 					}
-				}
-				res.render('estacion', data);
-			});
-		});
-	});	
+				};
+			res.render('estacion', data);
+  	});
 });
 
 app.get('/', function (req, res) {

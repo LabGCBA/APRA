@@ -25,18 +25,20 @@ html(lang='en')
             table.table.table-bordered
               thead
                 tr
-                  th.sort(data-sort='id') ID
+                  //th.sort(data-sort='id') ID
                   th.sort(data-sort='name') Nombre
-                  th.sort(data-sort='ubicacion') Ubicacion
-                  th.sort(data-sort='modelo') Modelo
-                  th.sort(data-sort='inicioactividad') Inicio Actividad
-                  th.sort(data-sort='marca') Marca
-                  th.sort(data-sort='estado') Estado
+                  //th.sort(data-sort='ubicacion') Ubicacion
+                  //th.sort(data-sort='modelo') Modelo
+                  //th.sort(data-sort='inicioactividad') Inicio Actividad
+                  //th.sort(data-sort='marca') Marca
+                  //th.sort(data-sort='estado') Estado
               tbody
                 for estacion in data.estaciones
                   tr
-                    for propiedad in estacion
+                    //for propiedad in estacion
                       td= propiedad
+                    td
+                      a(href="http://bapocbulkserver.azurewebsites.net"+estacion.SensosrsLink)= estacion.Id
                     td.edit
                       button.edit-item-btn.btn.btn-primary Editar
                     td.remove
