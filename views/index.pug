@@ -6,14 +6,19 @@ html
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:300', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='/main.css')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     script.
-      function getData(str){
-            $.get("http://localhost:3000/"+str, function(data){
+      $.get("http://localhost:3000/estacion", function(data){
               $("#result").html(data);
-            });
+              $("#result").hide();
+      });
+      function getData(str){
+            $("#result").show();
       }
   body
+    #header-wrapper
+      #header.container2
+        img(src='logogcba.jpg', width='22%', height='100')
     ul.sidebar
       li.sidebar-brand
         a(onclick='getData("estacion");') APRA
