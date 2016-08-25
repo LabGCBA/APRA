@@ -13,7 +13,9 @@ html
       });
       
       function getData(str){
-            $("#result").show();
+            $.get("http://localhost:3000/"+str, function(data){
+              $("#result").html(data);
+            });
       }
   body
     #header-wrapper
@@ -21,11 +23,11 @@ html
         img(src='logogcba.jpg', width='22%', height='100')
     ul.sidebar
       li.sidebar-brand
-        a(onclick='getData("estacion");') APRA
+        a(href="#") APRA
       li
-        a(onclick='getData("estacion/sensor");') Estaciones
+        a(onclick='getData("sensores/la_boca");') La Boca
       li
-        a(href='estacion/sensor') Sensores
+        a(onclick='getData("sensores/centenario");') Centenario
       li
-        a(href='estacion/sensor/medicion') Mediciones
+        a(onclick='getData("sensores/cordoba");') Córdoba
     #result
