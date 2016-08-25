@@ -38,38 +38,12 @@ html(lang='en')
       table.table.table-bordered.table-inverse(style='margin-top:30px;')
         thead
           tr
-            th
             th Timestamp
             th Valor
-            th Unidad
-            th Descripcion
-            th Sensor_ID
+            th Link
         tbody
-          tr
-            th(scope='row') 1
-            td
-            td
-            td
-            td
-            td
-          tr
-            th(scope='row') 2
-            td
-            td
-            td
-            td
-            td
-          tr
-            th(scope='row') 3
-            td
-            td
-            td
-            td
-            td
-          tr
-            th(scope='row') 4
-            td
-            td
-            td
-            td
-            td
+          for medicion in data.mediciones
+            tr
+              td= medicion.Day
+              td= medicion.State
+              td= medicion.DayStatisticLink

@@ -17,18 +17,14 @@ background-color: #fff;
 border-color: #ccc;
 }
 
-#header-wrapper {
-	padding: 0em 0em;
-	background: #f8c301;
+#header img{
+  margin-top: 3px;
 }
-#header
-{
-	height: 100px;
-}
-#header .container2
-{
-	margin: 0px;
-	width: 100%;
+
+.container2 {
+  background-color: #f9dd00;
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));
+  height: 40px;
 }
 
 #result {
