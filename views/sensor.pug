@@ -16,7 +16,7 @@ html(lang='en')
         }
   body
     .container
-      h2= data.estacion_id
+      h2= data.estacion_id.toUpperCase()
       .row
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensores
@@ -37,13 +37,13 @@ html(lang='en')
                 for sensor in data.sensores
                   tr
                     td
-                      a(onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= sensor.Id
+                      a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= sensor.Id
                     td.edit
                       button.edit-item-btn.btn.btn-primary Editar
                     td.remove
                       button.remove-item-btn.btn.btn-danger Borrar
           .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
-            h2(style='text-align:center;') AÑADIR NUEVO SENSOR
+            h2(style='text-align:center;') Añadir sensor
           form(action='url', method='POST')
             .form-group(style='')
               label(for='', style='margin-right:20px;') Sensor_Id
