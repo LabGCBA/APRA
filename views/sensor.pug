@@ -20,12 +20,21 @@ html(lang='en')
       .row
         button.btn.btn-info(type='button', style='margin-left: -85px;') Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
-          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensores
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Estación
           .col-sm-10(style='top: -20px;')
-            select.form-control(onchange='getData("sensores/"+this.options[this.selectedIndex].value+");')
-              option(value='la_boca') La Boca
-              option(value='centenario') Centenario
-              option(value='cordoba') Cordoba
+            select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control
+              if(data.estacion_id=='la_boca')
+                option(value='la_boca', selected) La Boca
+              else
+                option(value='la_boca') La Boca
+              if (data.estacion_id=='centenario')
+                option(value='centenario', selected) Centenario
+              else
+                option(value='centenario') Centenario
+              if(data.estacion_id=='cordoba')
+                option(value='cordoba', selected) Cordoba
+              else
+                option(value='cordoba') Cordoba
           #contacts
             table.table.table-bordered
               thead
