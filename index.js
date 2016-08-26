@@ -32,6 +32,7 @@ function listApi(busq, lista, callback){
 
 app.get('/mediciones/:sensor/:estacion', function(req, res){
 	listApi("sensors/"+req.params.estacion+"/"+req.params.sensor+"/2014", "mediciones", function(){
+		listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
 					sensor_id : req.params.sensor,

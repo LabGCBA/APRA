@@ -11,9 +11,20 @@ html(lang='en')
     link(rel='stylesheet', href='/main.css')
   body
     .container
-      h2= data.sensor_id    
+      h1= data.estacion_id.toUpperCase()
+      h2= data.sensor_id
       .row
-        .col-sm-3(style='float: right; left: -275px; margin-top: 65px; width: 50%;')
+        button.btn.btn-info(type='button', style='margin-left: -85px;', onclick='getData("sensores/'+data.estacion_id+'");') Atras
+        .form-group(style='margin-top:100px; margin-left:-90px;')
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensor
+          .col-sm-10(style='top: -20px;')
+            select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control
+              for sensor in data.sensores
+                if data.sensor_id == sensor.Id
+                  option(value=sensor.Id, selected)= sensor.Id
+                else
+                  option(value=sensor.Id)= sensor.Id
+        .col-sm-3(style='float: right; left: -275px; margin-top: 20px; width: 50%;')
           .well.well-sm
             form(action='DateTest.html')
               label(for='FromDate') Ingresa Fecha:
@@ -53,5 +64,5 @@ html(lang='en')
             label(for='') Sensor_ID
             input.form-control(type='', id='', placeholder='')
         .center-block(style=' text-align: center;')
-            button.btn.btn-info(type='submit') Añadir Estacion
+            button.btn.btn-info(type='submit') Añadir Medición
         

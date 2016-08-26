@@ -30,6 +30,10 @@ border-color: #ccc;
   background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));
   height: 40px;
 }
+h1 {
+  display: block;
+  text-align: center;
+}
 h2 {
   display: block;
   text-align: center;
