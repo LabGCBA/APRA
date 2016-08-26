@@ -21,13 +21,10 @@ html(lang='en')
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensores
           .col-sm-10(style='top: -20px;')
-            select.form-control
-              option
-              option 1
-              option 2
-              option 3
-              option 4
-              option 5
+            select.form-control(onchange='getData("sensores/"+this.options[this.selectedIndex].value+");')
+              option(value='la_boca') La Boca
+              option(value='centenario') Centenario
+              option(value='cordoba') Cordoba
           #contacts
             table.table.table-bordered
               thead

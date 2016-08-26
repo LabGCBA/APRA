@@ -29,8 +29,6 @@ html(lang='en')
               tbody
                 for estacion in data.estaciones
                   tr
-                    //for propiedad in estacion
-                      td= propiedad
                     td
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= estacion.Id
                     td.edit
