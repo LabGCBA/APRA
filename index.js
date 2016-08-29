@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var pug = require('pug');
 var bodyParser = require('body-parser');
 app.set('view engine', 'pug');
-app.use(express.static(__dirname))
+app.use(express.static(__dirname));
 var requestify = require('requestify');
 
 
@@ -77,7 +77,7 @@ app.get('/estacion', function(req, res){
 		res.render('estacion', data);
 	})
 });
-
+ 	
 app.get('/', function (req, res) {
 		res.render('index');
 });
