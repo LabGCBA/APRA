@@ -45,6 +45,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	 console.log(data);
 	 res.render('medicion', data);
 	});
+	});
 });
 
 app.get('/sensores/:estacion', function(req, res){
