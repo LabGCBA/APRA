@@ -4,17 +4,27 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    link(rel='stylesheet', href='css/main.css')
-    link(rel='stylesheet', href='js/archivos.js')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
-    link(rel='stylesheet', href='/main.css')
+    script.
+      $(document).ready( function() {
+            var now = new Date();
+            var month = (now.getMonth() + 1);               
+            var day = now.getDate();
+            if(month < 10) 
+                month = "0" + month;
+            if(day < 10) 
+                day = "0" + day;
+            var today = now.getFullYear() + "-" + month + "-" + day; 
+            $('#FromDate').attr("value", today);
+        });
+
   body
     .container
       h1= data.estacion_id.toUpperCase()
       h2= data.sensor_id
       .row
-        button.btn.btn-info(type='button', style='margin-left: -85px;', onclick='getData("sensores/'+data.estacion_id+'");') Atras
+        button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensor
           .col-sm-10(style='top: -20px;')
@@ -24,13 +34,13 @@ html(lang='en')
                   option(value=sensor.Id, selected)= sensor.Id
                 else
                   option(value=sensor.Id)= sensor.Id
-        .col-sm-3(style='float: right; left: -275px; margin-top: 20px; width: 50%;')
-          .well.well-sm
-            form(action='DateTest.html')
-              label(for='FromDate') Ingresa Fecha:
-              input#FromDate.date(type='date', name='FromDate', value='11/08/2012')
+        #selector
+            form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
+              #fecha
+                label(for='FromDate') Ingresa Fecha:
+                input(type='date', name='date')#FromDate
               hr
-              input#btnSubmit.btn.btn-success(type='submit', name='btnSubmit', value='Buscar', style='margin-top: -8px; margin-left: 175px;')
+              input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
         table.table.table-bordered.table-inverse(style='margin-top:30px;')
           thead
             tr

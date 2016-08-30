@@ -4,21 +4,12 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    link(rel='stylesheet', href='/archivos.js')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/main.css')
     script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
-    script.
-      function getData(str){
-              $.get("http://localhost:3000/"+str, function(data){
-                $("#result").html(data);
-              });
-        }
   body
     .container
       h2= data.estacion_id.toUpperCase()
       .row
-        button.btn.btn-info(type='button', style='margin-left: -85px;', onclick='getData("estacion");') Atras
+        button.btn.btn-info(type='button', onclick='getData("estacion");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Estación
           .col-sm-10(style='top: -20px;')

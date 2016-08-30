@@ -4,17 +4,8 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    link(rel='stylesheet', href='/archivos.js')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/main.css')
     script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
-    script.
-      function getData(str){
-              $.get("http://localhost:3000/"+str, function(data){
-                $("#result").html(data);
-              });
-        }
- 
+
   body
     .container(style='margin-top: -50px;')
       .row

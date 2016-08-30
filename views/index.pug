@@ -4,18 +4,20 @@ html
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title APRA
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:300', rel='stylesheet', type='text/css')
-    link(rel='stylesheet', href='/main.css')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
-    //link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='main.css')
     script.
+      $("#result").html("<div class='loader'></div>");
       $.get("http://localhost:3000/estacion", function(data){
               $("#result").html(data);
       });
-      
       function getData(str){
             $.get("http://localhost:3000/"+str, function(data){
               $("#result").html(data);
             });
+            $("#result").html("<div id='juntador'><div class='loader'></div></div>");
+            return false;
       }
 
      
@@ -28,7 +30,7 @@ html
         img(src='logo-normal.png') 
     ul.sidebar
       li.sidebar-brand
-        a(href="#") APRA
+        a(onclick='getData("estacion");') APRA
       li
         a(onclick='getData("sensores/la_boca");') La Boca
       li
