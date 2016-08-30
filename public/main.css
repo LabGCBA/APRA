@@ -25,6 +25,70 @@ border-color: #ccc;
   margin-top : 30px;
 }
 
+#atras {
+  position: fixed;
+  top: 100px;
+  left: 250px;
+  width: 100px;
+  height: 50px;
+  border: 1px black;
+}
+
+#selector {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  margin-top: 150px;
+  background-color: #DDD;
+  height: 130px;
+  align-content: center;
+}
+#selector label {
+  margin-right: 10px;
+}
+#fecha {
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  padding-top: 20px;
+} 
+
+#btnSubmit{
+  width: 20%;
+  margin: auto;
+  display: block;
+  position: relative;
+}
+
+#juntador {
+  height: 100%;
+  vertical-align: middle;
+  margin-top: 200px;
+}
+
+.loader {
+  margin-left: auto;
+  margin-right: auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .container2 {
   background-color: #f9dd00;
   background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));

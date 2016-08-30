@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var pug = require('pug');
 var bodyParser = require('body-parser');
 app.set('view engine', 'pug');
-app.use(express.static(__dirname));
+app.use(express.static('public'));
 var requestify = require('requestify');
 
 
@@ -31,7 +31,14 @@ function listApi(busq, lista, callback){
 }
 
 app.get('/mediciones/:sensor/:estacion', function(req, res){
-	listApi("sensors/"+req.params.estacion+"/"+req.params.sensor+"/2014", "mediciones", function(){
+	var dateSearch = new Date(Date.parse(req.query.date));
+	var now = new Date();
+	if(req.query.date)
+		anio = dateSearch.getFullYear();
+	else 
+		anio = now.getFullYear();
+	console.log(anio);
+	listApi("sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio, "mediciones", function(){
 		listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
