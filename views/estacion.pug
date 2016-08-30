@@ -14,6 +14,7 @@ html(lang='en')
                 $("#result").html(data);
               });
         }
+ 
   body
     .container(style='margin-top: -50px;')
       .row
@@ -32,9 +33,9 @@ html(lang='en')
                     td
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= estacion.Id
                     td.edit
-                      button.edit-item-btn.btn.btn-primary Editar
+                      button.edit-item-btn.btn.btn-primary() Editar
                     td.remove
-                      button.remove-item-btn.btn.btn-danger Borrar
+                      button(onclick='postData('+estacion.Id+')').remove-item-btn.btn.btn-danger() Borrar
           .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
             h2 Añadir Estación
           form(action='url', method='POST')
@@ -57,4 +58,4 @@ html(lang='en')
               label(for='') Estado
               input.form-control(type='', id='', placeholder='')
           .center-block(style=' text-align: center;')
-            button.btn.btn-info(type='submit') Añadir Estacion
+            button(onclick='getData('+estacion.Id+')').btn.btn-info() Añadir Estacion

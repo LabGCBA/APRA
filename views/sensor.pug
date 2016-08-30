@@ -48,7 +48,8 @@ html(lang='en')
                     td
                       a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= sensor.Id
                     td.edit
-                      button.edit-item-btn.btn.btn-primary Editar
+                      button.edit-item-btn.btn.btn-primary(onclick='getData()') Editar
+
                     td.remove
                       button.remove-item-btn.btn.btn-danger Borrar
           .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
