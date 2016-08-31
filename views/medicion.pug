@@ -68,11 +68,28 @@ html(lang='en')
             label(for='') Unidad
             input.form-control(type='', id='', placeholder='')
           .form-group
-            label(for='') Descripcion
-            input.form-control(type='', id='', placeholder='')
+            label(for='') Estacion_ID
+            select.form-control(type='', id='', placeholder='')
+                if(data.estacion_id=='la_boca')
+                  option(value='la_boca', selected) La Boca
+                else
+                  option(value='la_boca') La Boca
+                if (data.estacion_id=='centenario')
+                  option(value='centenario', selected) Centenario
+                else
+                  option(value='centenario') Centenario
+                if(data.estacion_id=='cordoba')
+                  option(value='cordoba', selected) Cordoba
+                else
+                  option(value='cordoba') Cordoba
           .form-group
             label(for='') Sensor_ID
-            input.form-control(type='', id='', placeholder='')
+            select.form-control(type='', id='', placeholder='')
+              for sensor in data.sensores
+                if data.sensor_id == sensor.Id
+                  option(value=sensor.Id, selected)= sensor.Id
+                else
+                  option(value=sensor.Id)= sensor.Id
         .center-block(style=' text-align: center;')
             button.btn.btn-info(type='submit') Añadir Medición
         

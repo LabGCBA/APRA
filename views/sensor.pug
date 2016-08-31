@@ -49,19 +49,25 @@ html(lang='en')
               label(for='', style='margin-right:20px;') Sensor_Id
               input.form-control(type='', id='', placeholder='')
             .form-group
-              label(for='') Ubicacion
+              label(for='') Nombre (CO, NOx, etc.)
               input.form-control(type='', id='', placeholder='')
             .form-group
-              label(for='') Modelo
+              label(for='') Unidad
               input.form-control(type='', id='', placeholder='')
             .form-group
-              label(for='') Inicio Actividad
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Marca
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Estado
-              input.form-control(type='', id='', placeholder='')
+              label(for='') Estacion_ID
+              select.form-control(type='', id='', placeholder='')
+                if(data.estacion_id=='la_boca')
+                  option(value='la_boca', selected) La Boca
+                else
+                  option(value='la_boca') La Boca
+                if (data.estacion_id=='centenario')
+                  option(value='centenario', selected) Centenario
+                else
+                  option(value='centenario') Centenario
+                if(data.estacion_id=='cordoba')
+                  option(value='cordoba', selected) Cordoba
+                else
+                  option(value='cordoba') Cordoba
           .center-block(style=' text-align: center;')
-            button.btn.btn-info(type='submit') Añadir Sensor
+            button.btn.btn-info(type='submit') Añadir Sensor 
