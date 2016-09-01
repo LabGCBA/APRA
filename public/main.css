@@ -11,6 +11,20 @@ body, html {
   height: 100%;
 }
 
+#promedios {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 50px;
+  width: 50%;
+}
+
+#promedios label, input[type=text], select {
+  text-align: center;
+  margin: 15px;
+}
+
+
 .btn-default {
 color: #333;
 background-color: #fff;
@@ -39,9 +53,9 @@ border-color: #ccc;
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
-  margin-top: 150px;
   background-color: #DDD;
   height: 130px;
+  margin-top: 150px;
   align-content: center;
 }
 #selector label {
