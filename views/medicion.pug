@@ -18,15 +18,29 @@ html(lang='en')
             var today = now.getFullYear() + "-" + month + "-" + day; 
             $('#FromDate').attr("value", today);
         });
+      function buscarProm(opc){
+        if(opc=='1'){
+          $('#valor').val("Esoooo");
+        }
+        else{
+          $('#valor').val("Chupala puto");
+        }
+      }
 
   body
     .container
       h1= data.estacion_id.toUpperCase()
       h2= data.sensor_id
+      #promedios
+          label Promedios:
+          select(onchange='buscarProm(this.options[this.selectedIndex].value)')
+            option(value='1') Últimas 8 hs
+            option(value='2') Últimas 12 hs
+          input(type="text", disabled)#valor
+      button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
       .row
-        button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
-        .form-group(style='margin-top:100px; margin-left:-90px;')
-          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Sensor
+        .form-group(style='margin-top: 50px; margin-left:-90px;')
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') Sensor
           .col-sm-10(style='top: -20px;')
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control
               for sensor in data.sensores
