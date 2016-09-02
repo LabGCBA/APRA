@@ -65,6 +65,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	 console.log(data);
 	 res.render('medicion', data);
 	});
+
 	});
 });
 
@@ -101,6 +102,7 @@ app.get('/estacion', function(req, res){
 app.get('/', function (req, res) {
 		res.render('index');
 });
+
 
 app.listen(3000, function () {
   console.log("Escuchando en el puerto "+ 3000);
