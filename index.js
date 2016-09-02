@@ -31,17 +31,30 @@ function listApi(busq, lista, callback){
 }
 
 app.get('/mediciones/:sensor/:estacion', function(req, res){
-	var dateSearch = new Date(Date.parse(req.query.date));
 	var now = new Date();
-	if(req.query.date)
-		anio = dateSearch.getFullYear();
-	else 
+	console.log(req.query.date);
+	if(req.query.date){
+		date = req.query.date;
+		date = date.split("-");
+		anio = date[0];
+		mes = date[1];
+		dia = date[2];
+		if(req.query.details)
+			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" +anio+"/"+mes+"/"+dia;
+		else
+			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes+"/"+dia;
+	}
+	else {
 		anio = now.getFullYear();
-	console.log(anio);
-	listApi("sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio, "mediciones", function(){
+		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio;
+	}
+	console.log(get);
+	listApi(get, "mediciones", function(){
 		listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
+					fecha : req.query.date,
+					details : req.query.details,
 					sensor_id : req.params.sensor,
 					estacion_id : req.params.estacion,
 					estaciones : estaciones,
