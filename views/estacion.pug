@@ -5,8 +5,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
     script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
-
-
+    link(href='main.css', rel='stylesheet', type='text/css')
   body
     .container(style='margin-top: -50px;')
       .row
@@ -27,7 +26,7 @@ html(lang='en')
                     td.edit
                       button.edit-item-btn.btn.btn-primary() Editar
                     td.remove
-                      button(onclick='postData('+estacion.Id+')').remove-item-btn.btn.btn-danger() Borrar
+                      button(onclick='postData('+estacion.Id+')').remove-item-btn.btn.btn-danger Borrar
           .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
             h2 Añadir Estación
           form(action='url', method='POST')
@@ -50,4 +49,4 @@ html(lang='en')
               label(for='') Estado
               input.form-control(type='', id='', placeholder='')
           .center-block(style=' text-align: center;')
-            button(onclick='getData('+estacion.Id+')').btn.btn-info() Añadir Estacion
+            button(onclick='getData('+estacion.Id+')').btn.btn-info Añadir Estacion
