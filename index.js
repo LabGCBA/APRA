@@ -50,7 +50,6 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	}
 	console.log(get);
 	listApi(get, "mediciones", function(){
-		listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
 					fecha : req.query.date,
@@ -64,8 +63,6 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 				};
 	 console.log(data);
 	 res.render('medicion', data);
-	});
-
 	});
 });
 

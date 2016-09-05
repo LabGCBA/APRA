@@ -8,14 +8,17 @@ html
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css')
     link(href='main.css', rel='stylesheet', type='text/css')
     script.
-      $("#result").html("<div class='loader'></div>");
+      $("#result").html("<div id='juntador'><div class='loader'></div></div>");
       $.get("http://localhost:3000/estacion", function(data){
               $("#result").html(data);
+              $('#side').height($(document).height()-1);
       });
       function getData(str){
             $.get("http://localhost:3000/"+str, function(data){
               $("#result").html(data);
+              $('#side').height($(document).height()-1);
             });
+            window.scrollTo(0, 0);
             $("#result").html("<div id='juntador'><div class='loader'></div></div>");
             return false;
       } 
@@ -28,7 +31,7 @@ html
     #header-wrapper
       #header.container2
         img(src='logo-normal.png') 
-    ul.sidebar
+    ul.sidebar#side
       li.sidebar-brand
         a(onclick='getData("estacion");') APRA
       li
