@@ -1,3 +1,4 @@
+-var stringData = JSON.stringify(data.mediciones)
 doctype html
 html(lang='en')
   head
@@ -7,6 +8,7 @@ html(lang='en')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
+      data = JSON.parse("#{stringData}".replace(/&quot;/g,'"'));
       $(document).ready( function() {
             var now = new Date();
             var month = (now.getMonth() + 1);               
@@ -19,23 +21,41 @@ html(lang='en')
             $('#FromDate').attr("value", today);
         });
       function buscarProm(opc){
-        if(opc=='1'){
-          $('#valor').val("Esoooo");
+        if (data.length > 32){
+          total1 = 0;
+          for(i = data.length-1; i >= data.length-32; i--){
+            total1 += parseInt(data[i].State);
+          }
+          total1 = total1/32;
+        }
+        if (data.length > 48){
+          total2 = 0;
+          for(i = data.length-1; i >= data.length-48; i--){
+            total2 += parseInt(data[i].State);
+          }
+          total2 = total2/48;
         }
         else{
-          $('#valor').val("Chupala puto");
+          console.log("No entramos");
         }
+        if(opc=='1'){
+            $('#valor').val(total1);
+          }
+        else{
+            $('#valor').val(total2);
+          }
       }
   body
     .container
       h1= data.estacion_id.toUpperCase()
       h2= data.sensor_id
-      #promedios
-          label Promedios:
-          select(onchange='buscarProm(this.options[this.selectedIndex].value)')
-            option(value='1') Últimas 8 hs
-            option(value='2') Últimas 12 hs
-          input(type="text", disabled)#valor
+      if(data.prom)
+        #promedios
+            label Promedios:
+            select(onchange='buscarProm(this.options[this.selectedIndex].value)')
+              option(value='1') Últimas 8 hs
+              option(value='2') Últimas 12 hs
+            input(type="text", disabled)#valor
       if (data.details)
         button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
       else if (data.fecha)
