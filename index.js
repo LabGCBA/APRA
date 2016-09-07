@@ -39,6 +39,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 		anio = date[0];
 		mes = date[1];
 		dia = date[2];
+		prom = true;
 		if(req.query.details)
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" +anio+"/"+mes+"/"+dia;
 		else
@@ -47,6 +48,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	else {
 		anio = now.getFullYear();
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio;
+		prom = false;
 	}
 	console.log(get);
 	listApi(get, "mediciones", function(){
@@ -58,7 +60,8 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					estacion_id : req.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
-					mediciones : mediciones
+					mediciones : mediciones,
+					prom : prom
 					}
 				};
 	 console.log(data);
