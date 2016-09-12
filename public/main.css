@@ -67,7 +67,7 @@ border-color: #ccc;
   margin-right: auto;
   border-radius: 15px;
   background-color: #DDD;
-  height: 130px;
+  height: 200px;
   margin-top: 150px;
   align-content: center;
 }
@@ -151,7 +151,7 @@ white-space: nowrap;
 vertical-align: middle;
 cursor: pointer;
 -webkit-user-select: none;
--moz-user-select: none;
+-moz-user-select: none; 
 -ms-user-select: none;
 user-select: none;
 background-image: none;
@@ -214,11 +214,16 @@ line-height: 60px;
 .col-sm-10{
   margin-top: 70px; 
   margin-bottom: 28px; 
-  margin-left: 115px;
-}
- 
-@media screen and (max-width: 600px){
-  .container{width: 50%;}
-  .sidebar{width: 25%;}
-  .col-sm-10{margin-left: 10px;}
+    margin-left: 115px;
+  }
+   
+  @media screen and (max-width: 427px){
+    .container{width: 50%;}
+    .sidebar{width: 25%;}
+    .col-sm-10{margin-left: 10px;}
+    .form-group{width: 135%;}
+    .btn-info{text-align: center;}
+    h2{padding-left: 50px;}
+    .btn-info{float: right;}
+    #selector{}
 }

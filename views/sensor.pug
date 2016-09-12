@@ -9,7 +9,7 @@ html(lang='en')
   body
     .container
       h2= data.estacion_id.toUpperCase()
-      .row
+      .row(style='margin-right= 0px;')
         button.btn.btn-info(type='button', onclick='getData("estacion");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Estación
@@ -71,5 +71,5 @@ html(lang='en')
                   option(value='cordoba', selected) Cordoba
                 else
                   option(value='cordoba') Cordoba
-          .center-block(style=' text-align: center;')
+          .center-block()
             button.btn.btn-info(type='submit') Añadir Sensor
