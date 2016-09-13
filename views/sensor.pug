@@ -4,15 +4,17 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')  
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')  
     link(href='main.css', rel='stylesheet', type='text/css')
   body
     .container
       h2= data.estacion_id.toUpperCase()
-      .row
+      .row(style='margin-right= 0px;')
         button.btn.btn-info(type='button', onclick='getData("estacion");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
-          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') Estación
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 115px; top: -20px;') ESTACIÓN
           .col-sm-10(style='top: -20px;')
             select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control
               if(data.estacion_id=='la_boca')
@@ -44,32 +46,35 @@ html(lang='en')
 
                     td.remove
                       button.remove-item-btn.btn.btn-danger Borrar
-          .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
+          .col-sm-10
             h2(style='text-align:center;') Añadir Sensor
-          form(action='url', method='POST')
-            .form-group(style='')
-              label(for='', style='margin-right:20px;') Sensor_Id
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Nombre (CO, NOx, etc.)
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Unidad
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Estacion_ID
-              select.form-control(type='', id='', placeholder='')
-                if(data.estacion_id=='la_boca')
-                  option(value='la_boca', selected) La Boca
-                else
-                  option(value='la_boca') La Boca
-                if (data.estacion_id=='centenario')
-                  option(value='centenario', selected) Centenario
-                else
-                  option(value='centenario') Centenario
-                if(data.estacion_id=='cordoba')
-                  option(value='cordoba', selected) Cordoba
-                else
-                  option(value='cordoba') Cordoba
-          .center-block(style=' text-align: center;')
-            button.btn.btn-info(type='submit') Añadir Sensor
+          .col-md-12
+            button.btn.btn-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
+            #demo.collapse
+             form(action='url', method='POST')
+              .form-group(style='')
+                label(for='', style='margin-top:90px;') Sensor_ID
+                input.form-control(type='', id='', placeholder='')
+              .form-group
+                label(for='') Nombre (CO, NOx, etc.)
+                input.form-control(type='', id='', placeholder='')
+              .form-group
+                label(for='') Unidad
+                input.form-control(type='', id='', placeholder='')
+              .form-group
+                label(for='') Estacion_ID
+                select.form-control(type='', id='', placeholder='')
+                  if(data.estacion_id=='la_boca')
+                    option(value='la_boca', selected) La Boca
+                  else
+                    option(value='la_boca') La Boca
+                  if (data.estacion_id=='centenario')
+                    option(value='centenario', selected) Centenario
+                  else
+                    option(value='centenario') Centenario
+                  if(data.estacion_id=='cordoba')
+                    option(value='cordoba', selected) Cordoba
+                  else
+                    option(value='cordoba') Cordoba
+              .center-block()
+                button.btn.btn-info(type='submit') Añadir Sensor  

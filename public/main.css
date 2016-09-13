@@ -67,7 +67,7 @@ border-color: #ccc;
   margin-right: auto;
   border-radius: 15px;
   background-color: #DDD;
-  height: 130px;
+  height: 200px;
   margin-top: 150px;
   align-content: center;
 }
@@ -128,6 +128,7 @@ h1 {
 h2 {
   display: block;
   text-align: center;
+  padding-right: 60px;  
 }
 
 
@@ -151,7 +152,7 @@ white-space: nowrap;
 vertical-align: middle;
 cursor: pointer;
 -webkit-user-select: none;
--moz-user-select: none;
+-moz-user-select: none; 
 -ms-user-select: none;
 user-select: none;
 background-image: none;
@@ -201,11 +202,64 @@ height: 65px;
 font-size: 18px;
 line-height: 60px;
 }
-.calendario{
-  top: 112px;
-  float: right!important;
-  left: -300px; 
-}
 .tabla{
   margin-top: 20px;
 }
+
+.col-sm-10{
+  margin-top: 70px; 
+  margin-bottom: 28px; 
+  margin-left: 115px;
+}
+.col-md-12{
+  text-align: center;
+}
+
+
+/*TABLET
+  @media screen and (max-width: 720px){
+    .sidebar{width: 15%;}
+    .container{width: 85%;}
+    .form-group{width: 105%;}
+    #contacts{width: 100%;}
+    #selector{width: 70%;, float: left;}
+    body{width: 100%}
+    #btnSubmit{width: 30%;}
+    #tabla{width: 50%;}
+    #tabla{float: right;}
+    #tabla{margin-right: -20px;}
+    #formulario{margin-left: -124px;}
+    #formulario{margin-top: -130px;}
+    #atras{left: 120px;}
+
+  }
+
+
+/*MOBILE
+  @media screen and (max-width: 400px){
+    .container{width: 50%;}
+    .sidebar{width: 25%;}
+    .col-sm-10{margin-left: 10px;}
+    .form-group{width: 135%;}
+    h2{padding-left: 50px;}
+    .btn-info{float: right;}  
+}
+@media screen and (max-width: 1280px){
+    .container{width: 100%;}
+
+}
+*/
+.center-block{
+  text-align: center;
+
+}
+form{
+  margin-top:-59px;
+}
+#formulario{
+  margin-top: -220px;
+}
+.expansive{  
+  display: none;
+}
+label{margin-right: 900px;}

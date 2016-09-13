@@ -4,7 +4,9 @@ html(lang='en')
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    script(src='//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')  
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')  
     link(href='main.css', rel='stylesheet', type='text/css')
   body
     .container(style='margin-top: -50px;')
@@ -27,26 +29,29 @@ html(lang='en')
                       button.edit-item-btn.btn.btn-primary() Editar
                     td.remove
                       button(onclick='postData('+estacion.Id+')').remove-item-btn.btn.btn-danger Borrar
-          .col-sm-10(style='margin-top: 70px; margin-bottom: 28px; margin-left: 115px;')
+          .col-sm-10
             h2 Añadir Estación
-          form(action='url', method='POST')
-            .form-group(style='')
-              label(for='', style='margin-right:20px;') Estacion_Id
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Ubicacion
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Modelo
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Inicio Actividad
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Marca
-              input.form-control(type='', id='', placeholder='')
-            .form-group
-              label(for='') Estado
-              input.form-control(type='', id='', placeholder='')
-          .center-block(style=' text-align: center;')
-            button(onclick='getData('+estacion.Id+')').btn.btn-info Añadir Estacion
+          .col-md-12 
+            button.btn.btn-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
+            #demo.collapse
+              form(action='url', method='POST')
+                .form-group
+                  label(for='', style='margin-top: 90px; margin-right: 900px;') Estacion_Id
+                  input.form-control(type='', id='', placeholder='')
+                .form-group
+                  label(for='') Ubicacion
+                  input.form-control(type='', id='', placeholder='')
+                .form-group
+                  label(for='') Modelo
+                  input.form-control(type='', id='', placeholder='')
+                .form-group
+                  label(for='') Inicio Actividad
+                  input.form-control(type='', id='', placeholder='')
+                .form-group
+                  label(for='') Marca
+                  input.form-control(type='', id='', placeholder='')
+                .form-group
+                  label(for='') Estado
+                  input.form-control(type='', id='', placeholder='')
+              .center-block
+                button(onclick='getData('+estacion.Id+')').btn.btn-info Añadir Estacion
