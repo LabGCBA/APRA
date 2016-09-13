@@ -65,7 +65,7 @@ html(lang='en')
         button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
       .row
         .form-group(style='margin-top: 50px; margin-left:-90px;')
-          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') Sensor
+          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') SENSOR
           .col-sm-10(style='top: -20px;')
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control
               for sensor in data.sensores
@@ -73,69 +73,33 @@ html(lang='en')
                   option(value=sensor.Id, selected)= sensor.Id
                 else
                   option(value=sensor.Id)= sensor.Id
-        #selector
-            form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
-              #fecha
-                label(for='FromDate') Ingresa Fecha:
-                input(type='date', name='date')#FromDate
-              hr
-              input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
-        table.table.table-bordered.table-inverse(style='margin-top:30px;')
-          thead
-            tr
-              th Timestamp
-              th Valor
-              th 
-          tbody
-            for medicion in data.mediciones
-              tr
-                td
-                  if(medicion.Day)
-                    a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day
-                  else
-                    = medicion.At
-                td= medicion.State
-                td= medicion.DayStatisticLink
-        if(medicion.Day)
-          button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
-        else
-          button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.At.substring(0,10)+'&details=true");').btn.btn-success Detalles
+          .col-md-12        
+            #selector
+                form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
+                  #fecha
+                    label(for='FromDate') Ingresa Fecha:
+                    input(type='date', name='date')#FromDate
+                  hr
+                  input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
+          .col-md-12          
+            table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla  
+              thead 
+                tr
+                  th Timestamp
+                  th Valor
+                  th 
+              tbody
+                for medicion in data.mediciones
+                  tr
+                    td
+                      if(medicion.Day)
+                        a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day
+                      else
+                        = medicion.At
+                    td= medicion.State
+                    td= medicion.DayStatisticLink
+            if(medicion.Day)
+              button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
+            else
+              button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.At.substring(0,10)+'&details=true");').btn.btn-success Detalles
         .col-sm-10(style='margin-top: 35px; margin-bottom: 28px; margin-left: 60px;')
-            h2 Añadir Medicion     
-
-        form(action='url', method='', style='margin-top:-59px;')
-          .form-group
-            label(for='', style='margin-top:210px;') Timestamp
-            input.form-control(type='datetime-local', id='arrival-time')
-          .form-group
-            label(for='') Valor
-            input.form-control(type='', id='', placeholder='')
-          .form-group
-            label(for='') Unidad
-            input.form-control(type='', id='', placeholder='')
-          .form-group
-            label(for='') Estacion_ID
-            select.form-control(type='', id='', placeholder='')
-                if(data.estacion_id=='la_boca')
-                  option(value='la_boca', selected) La Boca
-                else
-                  option(value='la_boca') La Boca
-                if (data.estacion_id=='centenario')
-                  option(value='centenario', selected) Centenario
-                else
-                  option(value='centenario') Centenario
-                if(data.estacion_id=='cordoba')
-                  option(value='cordoba', selected) Cordoba
-                else
-                  option(value='cordoba') Cordoba
-          .form-group
-            label(for='') Sensor_ID
-            select.form-control(type='', id='', placeholder='')
-              for sensor in data.sensores
-                if data.sensor_id == sensor.Id
-                  option(value=sensor.Id, selected)= sensor.Id
-                else
-                  option(value=sensor.Id)= sensor.Id
-        .center-block(style=' text-align: center;')
-            button.btn.btn-info(type='submit') Añadir Medición
-        
