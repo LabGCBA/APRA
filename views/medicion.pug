@@ -66,7 +66,7 @@ html(lang='en')
       .row
         .form-group(style='margin-top: 50px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') SENSOR
-          .col-sm-10(style='top: -20px;')
+          .col-sm-10(style='top: -82px;')
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control
               for sensor in data.sensores
                 if data.sensor_id == sensor.Id
@@ -87,7 +87,7 @@ html(lang='en')
                 tr
                   th Timestamp
                   th Valor
-                  th 
+                  th
               tbody
                 for medicion in data.mediciones
                   tr
@@ -102,4 +102,3 @@ html(lang='en')
               button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
             else
               button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.At.substring(0,10)+'&details=true");').btn.btn-success Detalles
-        .col-sm-10(style='margin-top: 35px; margin-bottom: 28px; margin-left: 60px;')
