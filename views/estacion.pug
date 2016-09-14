@@ -11,24 +11,18 @@ html(lang='en')
   body
     .container(style='margin-top: -50px;')
       .row
-        .form-group(style='margin-top:100px; margin-left:-90px;')
-          h2 Estaciones
+        .form-group(style='margin-top:100px; margin-left:-75px;')
+          h1(style='padding') Estaciones
           #contacts
             table.table.table-bordered
               thead
                 tr
                   th.sort(data-sort='name') Nombre
-                  th Editar
-                  th Borrar
               tbody
                 for estacion in data.estaciones
                   tr
                     td
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= estacion.Id
-                    td.edit
-                      button.edit-item-btn.btn.btn-primary() Editar
-                    td.remove
-                      button(onclick='postData('+estacion.Id+')').remove-item-btn.btn.btn-danger Borrar
           .col-sm-10
             h2 Añadir Estación
           .col-md-12 
@@ -36,7 +30,7 @@ html(lang='en')
             #demo.collapse
               form(action='url', method='POST')
                 .form-group
-                  label(for='', style='margin-top: 90px; margin-right: 900px;') Estacion_Id
+                  label(for='', style='margin-top: 90px;') Estacion_Id
                   input.form-control(type='', id='', placeholder='')
                 .form-group
                   label(for='') Ubicacion
