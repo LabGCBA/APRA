@@ -1,5 +1,5 @@
--var stringData = JSON.stringify(data.mediciones)
--var stringDataAyer = JSON.stringify(data.medicionesayer)
+-var promm8 = JSON.stringify(data.prom8)
+-var promm12 = JSON.stringify(data.prom12)
 doctype html
 html(lang='en')
   head
@@ -9,8 +9,8 @@ html(lang='en')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
-      data = JSON.parse("#{stringData}".replace(/&quot;/g,'"'));
-      dataAyer = JSON.parse("#{stringDataAyer}".replace(/&quot;/g,'"'));
+      data8 = JSON.parse("#{promm8}".replace(/&quot;/g,'"'));
+      data12 = JSON.parse("#{promm12}".replace(/&quot;/g,'"'));
       $(document).ready( function() {
             var now = new Date();
             var month = (now.getMonth() + 1);               
@@ -22,66 +22,19 @@ html(lang='en')
             var today = now.getFullYear() + "-" + month + "-" + day; 
             $('#FromDate').attr("value", today);
         });
-      len = data.length;
-      if (len > 48){
-          total1 = 0;
-          for(i = data.length-1; i >= data.length-32; i--){
-            total1 += parseInt(data[i].State);
-          }
-          total1 = total1/32;
-          total2 = 0;
-          for(i = data.length-1; i >= data.length-48; i--){
-            total2 += parseInt(data[i].State);
-          }
-          total2 = total2/48;
-      }
-      else if(len > 32){
-          total1 = 0;
-          for(i = data.length-1; i >= data.length-32; i--){
-            total1 += parseInt(data[i].State);
-          }
-          total1 = total1/32;
-          total2 = 0;
-          for(i = len-1; i >= 0; i--){
-            total2 += parseInt(data[i].State);
-          }
-          for(i=dataAyer.length-1; i >= dataAyer.length+(len-48); i--){
-            total2 += parseInt(dataAyer[i].State);
-          }
-          total2 = total2/48;
-      }
-      else {
-        total1 = 0;
-          for(i = len-1; i >= 0; i--){
-            total1 += parseInt(data[i].State);
-          }
-          for(i=dataAyer.length-1; i >= dataAyer.length+(len-32); i--){
-            total1 += parseInt(dataAyer[i].State);
-          }
-          total1 = total1/32;
-        total2 = 0;
-          for(i = len-1; i >= 0; i--){
-            total2 += parseInt(data[i].State);
-          }
-          for(i=dataAyer.length-1; i >= dataAyer.length+(len-48); i--){
-            total2 += parseInt(dataAyer[i].State);
-          }
-          total2 = total2/48;
-      }
       function buscarProm(opc){
         if(opc=='1'){
-            $('#valor').val(total1);
+            $('#valor').val(data8);
           }
         else{
-            $('#valor').val(total2);
+            $('#valor').val(data12);
           }
       }
   body        
     .container
       h1= data.estacion_id.toUpperCase()
       h2= data.sensor_id
-      if(data.prom)
-        #promedios
+      #promedios
             label Promedios:
             select(onchange='buscarProm(this.options[this.selectedIndex].value)')
               option(value='1') Últimas 8 hs

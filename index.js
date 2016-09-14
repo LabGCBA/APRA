@@ -88,7 +88,7 @@ function cronJob() {
 		});
 	});
 }
-new CronJob('* */30 * * * *', cronJob , function(){
+new CronJob('* */15 * * * *', cronJob , function(){
 	console.log(prom8);
 	console.log(prom12);
 }, true, 'America/Los_Angeles');
@@ -142,7 +142,8 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					sensores : sensores,
 					mediciones : mediciones,
 					medicionesayer : null,
-					prom : prom
+					prom8 : prom8[(req.params.estacion)][req.params.sensor],
+					prom12 : prom12[(req.params.estacion)][req.params.sensor]
 					}
 				};
 			if (req.query.date)
