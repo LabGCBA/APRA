@@ -221,7 +221,7 @@ line-height: 60px;
 }
 
 
-/*TABLET
+TABLET
   @media screen and (max-width: 720px){
     .sidebar{width: 15%;}
     .container{width: 85%;}
@@ -240,9 +240,9 @@ line-height: 60px;
   }
 
 
-/*MOBILE
+MOBILE
   @media screen and (max-width: 400px){
-    .container{width: 50%;}
+    .container{width: 100%;}
     .sidebar{width: 25%;}
     .col-sm-10{margin-left: 10px;}
     .form-group{width: 135%;}
@@ -253,7 +253,6 @@ line-height: 60px;
     .container{width: 100%;}
 
 }
-*/
 .center-block{
   text-align: center;
   margin-right: 78px;
