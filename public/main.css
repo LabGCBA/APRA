@@ -193,6 +193,14 @@ width: 100%;
   transition:0.5s ease;
 }
 
+#chart {
+  width: 70%;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
 .sidebar li:hover {
   background-color:#777;
   cursor:pointer;
@@ -226,11 +234,12 @@ MOBILE
     .sidebar{width: 100px;}
     .col-sm-10{margin-left: 10px;}
     h1{padding-right: 190px;} 
-    h2{padding-right: 521px; margin-left:-22px; margin-top:47px;}
+    h2{padding-right: 586px; margin-left:-296px; margin-top:47px;}
     .table{width: 60%; margin-left:-22px; }
     .btn-info{margin-left: -192px;}
     .form{width: 54%; padding-right: 20px; margin-left: -30px;}
     .center-block{margin-right: 88px;}
+    .
 }
 
 TABLET

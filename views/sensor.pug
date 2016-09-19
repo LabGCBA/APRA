@@ -34,18 +34,11 @@ html(lang='en')
               thead
                 tr
                   th.sort(data-sort='name') Nombre
-                  th Editar
-                  th Borrar
               tbody
                 for sensor in data.sensores
                   tr
                     td
                       a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= sensor.Id
-                    td.edit
-                      button.edit-item-btn.btn.btn-primary(onclick='getData()') Editar
-
-                    td.remove
-                      button.remove-item-btn.btn.btn-danger Borrar
           .col-sm-10
             h2 Añadir Sensor
           .col-md-12
