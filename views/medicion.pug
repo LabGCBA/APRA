@@ -17,29 +17,25 @@ html(lang='en')
       $(document).ready( function() {
         console.log(dias);
         if (dias){
-          var options = {
+            var options = {
                 title: {
-                  text: "Spline Chart using jQuery Plugin"
+                  text: "Datos de las últimas 12  hs"
                 },
                             animationEnabled: true,
                 data: [
                 {
-                  type: "spline", //change it to line, area, column, pie, etc
-                  dataPoints: [
-                    { x: 10, y: 10 },
-                    { x: 20, y: 12 },
-                    { x: 30, y: 8 },
-                    { x: 40, y: 14 },
-                    { x: 50, y: 6 },
-                    { x: 60, y: 24 },
-                    { x: 70, y: -4 },
-                    { x: 80, y: 10 }
-                  ]
+                  type: "spline",
+                  dataPoints: []
                 }
                 ]
               };
-
-        $("#chart").CanvasJSChart(options);
+        for(i=0; i < datosMed.length; i++){
+          var date = new Date(Date.parse(datosMed[i].At)+10800000);
+          console.log(date);
+          (options.data)[0].dataPoints.push({x:date, y:datosMed[i].State});
+        }
+        var chart = new CanvasJS.Chart("chart", options);
+        chart.render();
               }
                   var now = new Date();
                   var month = (now.getMonth() + 1);               
@@ -70,16 +66,16 @@ html(lang='en')
               option(value='1') Últimas 8 hs
               option(value='2') Últimas 12 hs
             input(type="text", disabled)#valor
-      #chart
-        h1
       if (data.details)
-        button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
-      else if (data.fecha)
-        if (data.details)
-        button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'");')#atras Atras
-      else
-        button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
+        #chart
       .row
+        if (data.details)
+          button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
+        else if (data.fecha)
+          if (data.details)
+          button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'");')#atras Atras
+        else
+          button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
         .form-group(style='margin-top: 50px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') SENSOR
           .col-sm-10(style='top: -82px;')
@@ -97,24 +93,33 @@ html(lang='en')
                     input(type='date', name='date')#FromDate
                   hr
                   input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
-          .col-md-12          
-            table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla  
-              thead 
-                tr
-                  th Timestamp
-                  th Valor
-                  th
-              tbody
-                for medicion in data.mediciones
+          .col-md-12  
+            #contacts        
+              table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla  
+                thead 
                   tr
-                    td
-                      if(medicion.Day)
-                        a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day
+                    th Timestamp
+                    th Valor
+                    if(data.details)
+                      th Borrar
+                    else
+                      th link
+                tbody
+                  for medicion in data.mediciones
+                    tr
+                      td
+                        if(medicion.Day)
+                          a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day
+                        else
+                          = medicion.At
+                      td= medicion.State
+                      if(data.details)
+                        td
+                          button.btn.btn-danger(onclick='') Borrar
                       else
-                        = medicion.At
-                    td= medicion.State
-                    td= medicion.DayStatisticLink
-            if(medicion.Day)
-              button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
-            else
-              button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.At.substring(0,10)+'&details=true");').btn.btn-success Detalles
+                        td= medicion.DayStatisticLink
+
+              if(medicion.Day)
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
+              else
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.At.substring(0,10)+'&details=true");').btn.btn-success Detalles
