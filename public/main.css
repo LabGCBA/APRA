@@ -220,9 +220,21 @@ line-height: 60px;
   text-align: center;
 }
 
+MOBILE
+@media screen and (max-width: 400px){
+    .container{width: 50%;}
+    .sidebar{width: 100px;}
+    .col-sm-10{margin-left: 10px;}
+    h1{padding-right: 190px;} 
+    h2{padding-right: 521px; margin-left:-22px; margin-top:47px;}
+    .table{width: 60%; margin-left:-22px; }
+    .btn-info{margin-left: -192px;}
+    .form{width: 54%; padding-right: 20px; margin-left: -30px;}
+    .center-block{margin-right: 88px;}
+}
 
 TABLET
-  @media screen and (max-width: 720px){
+@media screen and (max-width: 720px){
     .sidebar{width: 15%;}
     .container{width: 85%;}
     .form-group{width: 105%;}
@@ -238,17 +250,6 @@ TABLET
     #atras{left: 120px;}
 
   }
-
-
-MOBILE
-  @media screen and (max-width: 400px){
-    .container{width: 100%;}
-    .sidebar{width: 25%;}
-    .col-sm-10{margin-left: 10px;}
-    .form-group{width: 135%;}
-    h2{padding-left: 50px;}
-    .btn-info{float: right;}  
-}
 @media screen and (max-width: 1280px){
     .container{width: 100%;}
 
@@ -268,3 +269,4 @@ form{
   display: none;
 }
 label{margin-right: 900px;}
+  
