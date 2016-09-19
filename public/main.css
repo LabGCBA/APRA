@@ -193,6 +193,14 @@ width: 100%;
   transition:0.5s ease;
 }
 
+#chart {
+  width: 70%;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
 .sidebar li:hover {
   background-color:#777;
   cursor:pointer;

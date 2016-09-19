@@ -1,27 +1,57 @@
 -var promm8 = JSON.stringify(data.prom8)
+-var datos = JSON.stringify(data.mediciones)
 -var promm12 = JSON.stringify(data.prom12)
+-var dia = JSON.stringify(data.details)
 doctype html
 html(lang='en')
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
-    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
       data8 = JSON.parse("#{promm8}".replace(/&quot;/g,'"'));
       data12 = JSON.parse("#{promm12}".replace(/&quot;/g,'"'));
+      datosMed = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
+      dias = JSON.parse("#{dia}");
       $(document).ready( function() {
-            var now = new Date();
-            var month = (now.getMonth() + 1);               
-            var day = now.getDate();
-            if(month < 10) 
-                month = "0" + month;
-            if(day < 10) 
-                day = "0" + day;
-            var today = now.getFullYear() + "-" + month + "-" + day; 
-            $('#FromDate').attr("value", today);
-        });
+        console.log(dias);
+        if (dias){
+          var options = {
+                title: {
+                  text: "Spline Chart using jQuery Plugin"
+                },
+                            animationEnabled: true,
+                data: [
+                {
+                  type: "spline", //change it to line, area, column, pie, etc
+                  dataPoints: [
+                    { x: 10, y: 10 },
+                    { x: 20, y: 12 },
+                    { x: 30, y: 8 },
+                    { x: 40, y: 14 },
+                    { x: 50, y: 6 },
+                    { x: 60, y: 24 },
+                    { x: 70, y: -4 },
+                    { x: 80, y: 10 }
+                  ]
+                }
+                ]
+              };
+
+        $("#chart").CanvasJSChart(options);
+              }
+                  var now = new Date();
+                  var month = (now.getMonth() + 1);               
+                  var day = now.getDate();
+                  if(month < 10) 
+                      month = "0" + month;
+                  if(day < 10) 
+                      day = "0" + day;
+                  var today = now.getFullYear() + "-" + month + "-" + day; 
+                  $('#FromDate').attr("value", today);
+              });
+      buscarProm(1);
       function buscarProm(opc){
         if(opc=='1'){
             $('#valor').val(data8);
@@ -40,6 +70,8 @@ html(lang='en')
               option(value='1') Últimas 8 hs
               option(value='2') Últimas 12 hs
             input(type="text", disabled)#valor
+      #chart
+        h1
       if (data.details)
         button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
       else if (data.fecha)

@@ -15,24 +15,58 @@ var estaciones = [];
 var sensores = [];
 var mediciones = [];
 var medicionesayer = [];
-prom8 = {};
-prom12 = {};
+var prom8 = {};
+var prom12 = {};
 cronJob();
+function asyncLoop(iterations, func, callback) {
+    var index = 0;
+    var done = false;
+    var loop = {
+        next: function() {
+            if (done) {
+                return;
+            }
+
+            if (index < iterations) {
+                index++;
+                func(loop);
+
+            } else {
+                done = true;
+                callback();
+            }
+        },
+
+        iteration: function() {
+            return index - 1;
+        },
+
+        break: function() {
+            done = true;
+            callback();
+        }
+    };
+    loop.next();
+    return loop;
+}
 function cronJob() {
 	var now = new Date();
 	listApi("stations", "estaciones", function(){
-		estaciones.forEach(function(value, index){
+		asyncLoop(estaciones.length, function(loop) {
+			value = estaciones[loop.iteration()];
 			prom8[value.Id] = {};
 			prom12[value.Id] = {};
 			listApi("stations/"+value.Id, "sensores", function(){
-				sensores.forEach(function(value2, index2){
+				asyncLoop(sensores.length, function(loop2) {
+					value2 = sensores[loop2.iteration()];
 					get = "sensors/" + value.Id + "/" + value2.Id + "/" + now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate();
 					listApi(get, "mediciones", function(){
 						get = "sensors/" + value.Id + "/" + value2.Id + "/" + now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + (now.getDate()-1);
+						listApi(get, "medicionesayer", function(){
 						if (mediciones.length >= 48){
 							sum = 0;
 							for (i = mediciones.length-1; i >= mediciones.length - 48; i--) {
-								sum += parseFloat(mediciones[i].State);
+								sum += mediciones[i].State;
 							}
 							prom12[value.Id][value2.Id] = sum/48;
 							sum = 0;
@@ -42,28 +76,22 @@ function cronJob() {
 							prom8[value.Id][value2.Id] = (sum/32);
 						}
 						else if (mediciones.length >= 32){
-							console.log("Hay mas o menos suficientes");
-							sum = 0;
-							for (i = mediciones.length-1; i >= mediciones.length - 32; i--){
-								sum += mediciones[i].State;
-							}
-							prom8[value.Id][value2.Id]  = (sum/32);
-							listApi(get, "medicionesayer", function(){
+								sum = 0;
+								for (i = mediciones.length-1; i >= mediciones.length - 32; i--){
+									sum += mediciones[i].State;
+								}
+								prom8[value.Id][value2.Id]  = (sum/32);
 								sum = 0;
 								for (i = mediciones.length-1; i >= 0; i--){
 									sum += mediciones[i].State;
 								}
-								for (i = medicionesayer.length-1; i >= medicionesayer.length + mediciones.length-48; i--){
+								for (i = medicionesayer.length-1; i >= medicionesayer.length + mediciones.length - 48; i--){
 									sum += medicionesayer[i].State;
 								}
 								prom12[value.Id][value2.Id]  = (sum/48);
-								console.log(prom12);
-							});
 						}
 						else{
-							listApi(get, "medicionesayer", function(){
 								sum = 0;
-								console.log("No hay suficientes");
 								for (i = mediciones.length-1; i >= 0; i--){
 									sum += mediciones[i].State;
 								}
@@ -79,16 +107,21 @@ function cronJob() {
 									sum += medicionesayer[i].State;
 								}
 								prom8[value.Id][value2.Id] = (sum/32);
-								console.log(prom12);
-							});
 						}
+						loop2.next();
+						});
 					});
+				}, function(){
+					loop.next();
 				});
 			});
+		}, function(){
+			console.log(prom8);
+			console.log(prom12);
 		});
 	});
 }
-new CronJob('* */15 * * * *', cronJob , function(){
+new CronJob('*/15 * * * *', cronJob , function(){
 	console.log(prom8);
 	console.log(prom12);
 }, true, 'America/Los_Angeles');
@@ -120,39 +153,36 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 		mes = date[1];
 		dia = date[2];
 		prom = true;
-		if(req.query.details)
+		if(req.query.details){
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" +anio+"/"+mes+"/"+dia;
-		else
+			detalles = true;
+		}
+		else{
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes+"/"+dia;
+			detalles = false;
+		}
 	}
 	else {
 		anio = now.getFullYear();
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio;
 		prom = false;
+		detalles = false;
 	}
 	console.log(get);
 	listApi(get, "mediciones", function(){
 		data = {
 					data : {
 					fecha : req.query.date,
-					details : req.query.details,
+					details : detalles,
 					sensor_id : req.params.sensor,
 					estacion_id : req.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
 					mediciones : mediciones,
-					medicionesayer : null,
 					prom8 : prom8[(req.params.estacion)][req.params.sensor],
 					prom12 : prom12[(req.params.estacion)][req.params.sensor]
 					}
 				};
-			if (req.query.date)
-				get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes+"/"+parseInt(dia)-1;
-			else
-				get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+now.getMonth()+1+"/"+now.getDay()-1;
-			listApi(get, "medicionesayer", function() {
-				data.data.medicionesayer = medicionesayer;
-			});
 	 res.render('medicion', data);
 	});
 });
@@ -174,6 +204,7 @@ app.get('/sensores/:estacion', function(req, res){
 
 app.get('/estacion', function(req, res){
 	console.log(prom8);
+	console.log(prom12);
 	listApi("stations", "estaciones", function(){
 		data = {
 					data : {
@@ -191,6 +222,6 @@ app.get('/', function (req, res) {
 });
 
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log("Escuchando en el puerto "+ 3000);
 });
