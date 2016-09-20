@@ -165,7 +165,6 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	else {
 		anio = now.getFullYear();
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio;
-		prom = false;
 		detalles = false;
 	}
 	console.log(get);
