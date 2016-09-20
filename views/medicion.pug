@@ -97,7 +97,7 @@ html(lang='en')
             if(data.fecha && !data.details)
                 button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-success Detalles
             #contacts        
-              table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla  
+              table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla 
                 thead 
                   tr
                     th Timestamp
