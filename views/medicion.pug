@@ -95,9 +95,9 @@ html(lang='en')
                   input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
           .col-md-12  
             if(data.mediciones[0].Day)
-                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].Day.substring(0,10)+'&details=true");').btn.btn-success(style='margin-top: 20px;') Detalles
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].Day.substring(0,10)+'&details=true");').btn.btn-success Detalles
             else
-                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-success(style='margin-top: 20px;') Detalles
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-success Detalles
             #contacts        
               table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla 
                 thead 
