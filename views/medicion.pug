@@ -56,7 +56,8 @@ html(lang='en')
               };
         for(i=0; i < datosMed.length; i++){
           var date = new Date(Date.parse(datosMed[i].At)+10800000);
-          (options.data)[0].dataPoints.push({x:date, y:datosMed[i].State});
+          if(datosMed[i].Active)
+            (options.data)[0].dataPoints.push({x:date, y:datosMed[i].State});
         }
         var chart = new CanvasJS.Chart("chart", options);
         chart.render();
