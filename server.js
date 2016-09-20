@@ -143,8 +143,8 @@ function listApi(busq, lista, callback){
 	});
 }
 
-app.post('/:estacion/:sensor/delete/:anio/:mes/:dia/:hora/:minuto', function(req, res){
-	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/delete/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
+app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
+	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
 	requestify.post(url).then(function(response){
 		res.send(""+response.code+"");
 		console.log(response.code);

@@ -27,6 +27,19 @@ html(lang='en')
             getData('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
         });
       }
+       function agregarMedicion (timestamp){
+        var date = new Date(Date.parse(timestamp)+10800000);
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/add/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), function( data ) {
+            if(data == "202"){
+              alert("Registro agregado");
+            }
+            else {
+              alert("No se pudo agregar");
+            }
+            console.log('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+            getData('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+        });
+      }
       $(document).ready( function() {
         if (dias){
             var options = {
@@ -130,3 +143,5 @@ html(lang='en')
                         td
                           if (medicion.Active)
                             button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
+                          else
+                            button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
