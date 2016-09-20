@@ -1,7 +1,4 @@
--var promm8 = JSON.stringify(data.prom8)
--var datos = JSON.stringify(data.mediciones)
--var promm12 = JSON.stringify(data.prom12)
--var dia = JSON.stringify(data.fecha)
+-var datos = JSON.stringify(data)
 doctype html
 html(lang='en')
   head
@@ -10,12 +7,27 @@ html(lang='en')
     title
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
-      data8 = JSON.parse("#{promm8}".replace(/&quot;/g,'"'));
-      data12 = JSON.parse("#{promm12}".replace(/&quot;/g,'"'));
-      datosMed = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
-      dias = JSON.parse("#{dia}".replace(/&quot;/g,'"'));
+      data = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
+      estacion = data.estacion_id;
+      sensor = data.sensor_id;
+      data8 = data.prom8;
+      data12 = data.prom12;
+      dias = data.fecha;
+      datosMed = data.mediciones;
+      function eliminarMedicion (timestamp){
+        var date = new Date(Date.parse(timestamp)+10800000);
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), function( data ) {
+            if(data == "202"){
+              alert("Registro eliminado");
+            }
+            else {
+              alert("No se pudo eliminar");
+            }
+            console.log('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+            getData('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+        });
+      }
       $(document).ready( function() {
-        console.log(dias);
         if (dias){
             var options = {
                 title: {
@@ -31,7 +43,6 @@ html(lang='en')
               };
         for(i=0; i < datosMed.length; i++){
           var date = new Date(Date.parse(datosMed[i].At)+10800000);
-          console.log(date);
           (options.data)[0].dataPoints.push({x:date, y:datosMed[i].State});
         }
         var chart = new CanvasJS.Chart("chart", options);
@@ -70,12 +81,12 @@ html(lang='en')
         #chart
       .row
         if (data.details)
-          button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
+          button.btn.btn-primary(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
         else if (data.fecha)
           if (data.details)
-          button.btn.btn-info(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'");')#atras Atras
+          button.btn.btn-primary(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'");')#atras Atras
         else
-          button.btn.btn-info(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
+          button.btn.btn-primary(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
         .form-group(style='margin-top: 50px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') SENSOR
           .col-sm-10(style='top: -82px;')
@@ -95,7 +106,7 @@ html(lang='en')
                   input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
           .col-md-12  
             if(data.fecha && !data.details)
-                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-success Detalles
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-info Detalles del día
             #contacts        
               table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla 
                 thead 
@@ -103,9 +114,8 @@ html(lang='en')
                     th Timestamp
                     th Valor
                     if(data.details)
+                      th Estado
                       th Borrar
-                    else
-                      th link
                 tbody
                   for medicion in data.mediciones
                     tr
@@ -116,7 +126,7 @@ html(lang='en')
                           = medicion.At
                       td= medicion.State
                       if(data.details)
+                        td= medicion.Active
                         td
-                          button.btn.btn-danger(onclick='') Borrar
-                      else
-                        td= medicion.DayStatisticLink
+                          if (medicion.Active)
+                            button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar

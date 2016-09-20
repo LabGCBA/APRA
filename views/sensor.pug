@@ -12,11 +12,11 @@ html(lang='en')
     .container
       h2= data.estacion_id.toUpperCase()
       .row(style='margin-right= 0px;')
-        button.btn.btn-info(type='button', onclick='getData("estacion");')#atras Atras
+        button.btn.btn-primary(type='button', onclick='getData("estacion");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
           label.col-sm-2.control-label(for='inputPassword', style='padding-top: 7px; padding-left: 117px; top: -20px;') ESTACIÓN
           .col-sm-10
-            select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control(style='margin-top: -47px;')
+            select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control
               if(data.estacion_id=='la_boca')
                 option(value='la_boca', selected) La Boca
               else

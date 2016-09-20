@@ -143,9 +143,16 @@ function listApi(busq, lista, callback){
 	});
 }
 
+app.post('/:estacion/:sensor/delete/:anio/:mes/:dia/:hora/:minuto', function(req, res){
+	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/delete/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
+	requestify.post(url).then(function(response){
+		res.send(""+response.code+"");
+		console.log(response.code);
+	});
+});
+
 app.get('/mediciones/:sensor/:estacion', function(req, res){
 	var now = new Date();
-	console.log(req.query.date);
 	if(req.query.date){
 		date = req.query.date;
 		date = date.split("-");
@@ -167,7 +174,6 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio;
 		detalles = false;
 	}
-	console.log(get);
 	listApi(get, "mediciones", function(){
 		data = {
 					data : {
@@ -187,7 +193,6 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 });
 
 app.get('/sensores/:estacion', function(req, res){
-	console.log(req.params.estacion);
 	listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
@@ -202,8 +207,6 @@ app.get('/sensores/:estacion', function(req, res){
 });
 
 app.get('/estacion', function(req, res){
-	console.log(prom8);
-	console.log(prom12);
 	listApi("stations", "estaciones", function(){
 		data = {
 					data : {
