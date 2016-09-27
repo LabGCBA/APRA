@@ -10,11 +10,10 @@ html(lang='en')
       data = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
       estacion = data.estacion_id;
       sensor = data.sensor_id;
-      data8 = data.prom8;
-      data12 = data.prom12;
       dias = data.fecha;
       detalles = data.details;
       datosMed = data.mediciones;
+      datosAyer = data.medicionesayer;
       function eliminarMedicion (timestamp){
         var date = new Date(Date.parse(timestamp)+10800000);
           $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), function( data ) {
@@ -57,7 +56,7 @@ html(lang='en')
               };
         for(i=0; i < datosMed.length; i++){
           var date = new Date(Date.parse(datosMed[i].At)+10800000);
-          if(datosMed[i].Active||!detalles)
+          if(datosMed[i].Active)
             (options.data)[0].dataPoints.push({x:date, y:datosMed[i].State});
         }
         var chart = new CanvasJS.Chart("chart", options);
@@ -74,24 +73,44 @@ html(lang='en')
                   $('#FromDate').attr("value", today);
               });
       buscarProm(1);
-      function buscarProm(opc){
-        if(opc=='1'){
-            $('#valor').val(data8);
+      function buscarProm(cant){
+        horas = datosMed.length/4;
+        long = datosMed.length;
+        if (cant <= horas){
+          var tot = 0;
+          for(i = long-1; i >= long-cant*4; i--){
+            tot += datosMed[i].State;
           }
-        else{
-            $('#valor').val(data12);
+          var prom = tot/(cant*4);
+          $("#valor").val(prom);
+        }
+        else {
+          var tot = 0;
+          longayer = datosAyer.length;
+          for(i = long-1; i >= 0; i--){
+            tot += datosMed[i].State;
           }
+          for(i=longayer-1; i >= longayer - (cant*4-long); i--){
+            tot += datosAyer[i].State;
+          }
+          var prom = tot /(cant*4);
+          $("#valor").val(prom);
+        }
       }
   body        
     .container
       h1= data.estacion_id.toUpperCase()
       h2= data.sensor_id
-      #promedios
-            label Promedios:
-            select(onchange='buscarProm(this.options[this.selectedIndex].value)')
-              option(value='1') Últimas 8 hs
-              option(value='2') Últimas 12 hs
-            input(type="text", disabled)#valor
+      if(data.today)
+        #promedios
+              label Promedios:
+              select(onchange='buscarProm(this.options[this.selectedIndex].value)')
+                option(value=1) Última hora
+                option(value=3) Últimas 3 hs
+                option(value=8) Últimas 8 hs
+                option(value=12) Últimas 12 hs
+                option(value=24) Últimas 24 hs
+              input(type="text", disabled)#valor
       if (data.fecha)
         #chart
       .row
@@ -128,6 +147,8 @@ html(lang='en')
                   tr
                     th Timestamp
                     th Valor
+                    if(data.fecha)
+                      th Estado
                     if(data.details)
                       th Estado
                       th Borrar
@@ -140,10 +161,11 @@ html(lang='en')
                         else
                           = medicion.At
                       td= medicion.State
-                      if(data.details)
+                      if(data.fecha)
                         td= medicion.Active
-                        td
-                          if (medicion.Active)
-                            button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
-                          else
-                            button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
+                        if (data.details)
+                          td
+                            if (medicion.Active)
+                              button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
+                            else
+                              button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
