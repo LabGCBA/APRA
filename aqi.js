@@ -1,3 +1,6 @@
+module.exports = {
+    calcularAqi : calcularAqi
+};
 function calcularAqi(prom, parametro){
 	var ozone = {
 		HI : {
@@ -41,5 +44,3 @@ function calcularAqi(prom, parametro){
 	aqi = (((ihi-ilo)/(bphi-bplo))*(prom-bplo))+ilo;
     return aqi;
 }
-
-console.log(calcularAqi(0.2, "ozone"));

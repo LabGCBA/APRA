@@ -3,6 +3,7 @@ var app = express();
 var mysql = require('mysql');
 var pug = require('pug');
 var bodyParser = require('body-parser');
+var aqi = require('./aqi');
 app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
@@ -34,6 +35,8 @@ function listApi(busq, lista, callback){
 		callback();
 	});
 }
+
+console.log(aqi.calcularAqi(0.064, "ozone"));
 
 app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
 	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
