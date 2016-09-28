@@ -15,6 +15,7 @@ var estaciones = [];
 var sensores = [];
 var mediciones = [];
 var medicionesayer = [];
+var medicioneshoy = [];
 
 function listApi(busq, lista, callback){
 	url = "http://bapocbulkserver.azurewebsites.net/api1/";
@@ -28,6 +29,7 @@ function listApi(busq, lista, callback){
 				break;
 			case "medicionesayer" : medicionesayer = response.getBody();
 				break;
+			case "medicioneshoy" : medicioneshoy = response.getBody();
 		}
 		callback();
 	});
@@ -66,30 +68,54 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	}
 	else {
 		anio = now.getFullYear();
+		mes = now.getMonth()+1;
+		dia = now.getDate();
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+(now.getMonth()+1);
-		console.log(get);
 		detalles = false;
-		today = false;
+		today = true;
 	}
 	listApi(get, "mediciones", function(){
 		if (today){
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+mes+"/"+(dia-1);
 			listApi(get, "medicionesayer", function(){
-			data = {
-					data : {
-					fecha : req.query.date,
-					details : detalles,
-					sensor_id : req.params.sensor,
-					estacion_id : req.params.estacion,
-					estaciones : estaciones,
-					sensores : sensores,
-					mediciones : mediciones,
-					medicionesayer : medicionesayer,
-					today : true
-					}
-		
-			};
-	 		res.render('medicion', data);
+				if (!req.query.date){
+					get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+mes+"/"+dia;
+					listApi(get, "medicioneshoy", function(){
+						data = {
+						data : {
+						fecha : req.query.date,
+						details : detalles,
+						sensor_id : req.params.sensor,
+						estacion_id : req.params.estacion,
+						estaciones : estaciones,
+						sensores : sensores,
+						mediciones : mediciones,
+						medicioneshoy : medicioneshoy,
+						medicionesayer : medicionesayer,
+						today : true
+						}
+					};
+					res.render('medicion', data);
+					});
+				}
+				else{
+					data = {
+						data : {
+						fecha : req.query.date,
+						details : detalles,
+						sensor_id : req.params.sensor,
+						estacion_id : req.params.estacion,
+						estaciones : estaciones,
+						sensores : sensores,
+						mediciones : mediciones,
+						medicioneshoy : medicioneshoy,
+						medicionesayer : medicionesayer,
+						today : true
+						}
+					};
+					res.render('medicion', data);
+				}
+			
 		});
 		}
 		else {

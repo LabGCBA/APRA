@@ -74,6 +74,8 @@ html(lang='en')
               });
       buscarProm(1);
       function buscarProm(cant){
+        if(!dias)
+          datosMed = data.medicioneshoy;
         horas = datosMed.length/4;
         long = datosMed.length;
         if (cant <= horas){
