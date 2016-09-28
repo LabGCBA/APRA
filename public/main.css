@@ -15,10 +15,10 @@ body, html {
 #detalles {
   margin: 0px;
   display: block;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  width: 100px; 
-  margin-top: 20px;
+  width: 150px; overflow-x:
 }
 
 #promedios {
@@ -33,7 +33,6 @@ body, html {
   text-align: center;
   margin: 15px;
 }
-
 
 .btn-default {
 color: #333;
@@ -81,7 +80,7 @@ border-color: #ccc;
   margin-right: auto;
   width: 65%;
   padding-top: 20px;
-} 
+}
 
 #btnSubmit{
   width: 20%;
@@ -127,15 +126,13 @@ h1 {
   display: block;
   text-align: center;
   font-size: 30px;
-  padding-right: 78px; 
+  padding-right: 25px;
 }
 h2 {
   display: block;
   text-align: center;
-  padding-right: 78px;  
+  padding-right: 78px;
 }
-
-
 #result {
   display: inline-block;
   position: absolute;
@@ -156,7 +153,7 @@ white-space: nowrap;
 vertical-align: middle;
 cursor: pointer;
 -webkit-user-select: none;
--moz-user-select: none; 
+-moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
 background-image: none;
@@ -217,10 +214,14 @@ line-height: 60px;
 .tabla{
   margin-top: 20px;
 }
-
+.col-sm-2{
+  padding-top: 7px;
+  padding-left: 117px;
+  top: 43px;
+}
 .col-sm-10{
-  margin-top: 15px; 
-  margin-bottom: 7px; 
+  margin-top: 15px;
+  margin-bottom: 7px;
   margin-left: 200px;
   top: -20px;
   text-align: center;
@@ -229,22 +230,36 @@ line-height: 60px;
 .col-md-12{
   text-align: center;
 }
-
-MOBILE
+label{float: left;}
+/*MOBILE*/
 @media screen and (max-width: 400px){
     .container{width: 50%;}
-    .sidebar{width: 100px;}
+    .sidebar{width: 25%; height: 950px;}
     .col-sm-10{margin-left: 10px;}
-    h1{padding-right: 190px;} 
-    h2{padding-right: 586px; margin-left:-296px; margin-top:47px;}
-    .table{width: 60%; margin-left:-22px; }
-    .btn-info{margin-left: -192px;}
-    .form{width: 54%; padding-right: 20px; margin-left: -30px;}
-    .center-block{margin-right: 88px;}
-    .
-}
+    h2{margin-right: -395px; margin-top:20px;}
+    .table{width: 100%; margin-left:-30px; }
+    form{width: 130%; margin-left: -45px; margin-top: -59px}
+    .btn-info{margin-right: 20px;}
+    #atras{width: 60px; height: 30px; margin-left: -140px;}
+    #contacts{width: 120%;}
+    .moverh2{margin-right: 450px; margin-top: 55px;}
+    .moverboton{margin-left: 22px;}
+    .loader{margin-left: -30px;}
+    .moverizquierda{margin-left: -400px;}
+    .medida{width: 31%;}
+    .moversubir{padding-top: 0px; padding-left: 0px; top: -10px;}
+    .cambiar{width: 60%;}
+    .cambiar1{width: 43%;}
+    .moverizquierda1{margin-left: -78px;}
+    .moverizquierda2{margin-left: -388px;}
+    #btnSubmit{width: 23%; margin-right: 104px;}
+    #selector{width: 225px; border-top: 0px; margin-left: -45px;}
+    #promedios{text-align: center; margin: 4px; width: 0px; display: inline-flex; margin-top: 50px;}
+    label{margin-left: -141px; margin-top: -28px;}
+   .moverlabel{margin-left: -141px; margin-top: -28px;}
 
-TABLET
+
+/*TABLET
 @media screen and (max-width: 720px){
     .sidebar{width: 15%;}
     .container{width: 85%;}
@@ -265,6 +280,7 @@ TABLET
     .container{width: 100%;}
 
 }
+*/
 .center-block{
   text-align: center;
   margin-right: 78px;
@@ -276,8 +292,7 @@ form{
 #formulario{
   margin-top: -220px;
 }
-.expansive{  
+.expansive{
   display: none;
 }
 label{margin-right: 900px;}
-  
