@@ -231,6 +231,7 @@ line-height: 60px;
   text-align: center;
 }
 label{float: left;}
+
 /*MOBILE*/
 @media screen and (max-width: 400px){
     .container{width: 50%;}
@@ -247,16 +248,22 @@ label{float: left;}
     .loader{margin-left: -30px;}
     .moverizquierda{margin-left: -400px;}
     .medida{width: 31%;}
-    .moversubir{padding-top: 0px; padding-left: 0px; top: -10px;}
+    .moversubir{padding-top: 0px; padding-left: 0px; top: -30px;}
     .cambiar{width: 60%;}
     .cambiar1{width: 43%;}
     .moverizquierda1{margin-left: -78px;}
     .moverizquierda2{margin-left: -388px;}
     #btnSubmit{width: 23%; margin-right: 104px;}
-    #selector{width: 225px; border-top: 0px; margin-left: -45px;}
-    #promedios{text-align: center; margin: 4px; width: 0px; display: inline-flex; margin-top: 50px;}
-    label{margin-left: -141px; margin-top: -28px;}
+    #selector{width: 225px; border-top: 0px; margin-left: -45px; margin-top: 15px;}
+    #promedios{margin-left: -35px; margin: 25px; width: 0px; display: inline-flex; margin-top: 50px;}
+    label{margin-right: 14px; margin-top: -2px;}
    .moverlabel{margin-left: -141px; margin-top: -28px;}
+   .claseh1{margin-left: -80px;}
+   .claseh2{margin-left: -389px;}
+   .prome{margin-left: -197px; margin-top: -20px;}
+   .selectsensor{width: 34%;}
+   .controlsensor{top: -50px; margin-left: -150px; padding-top: 30px;}
+   hr{border-top: 0}
 
 
 /*TABLET
