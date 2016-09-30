@@ -95,7 +95,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : true
+						today : today
 						}
 					};
 					res.render('medicion', data);
@@ -113,7 +113,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : true
+						today : today
 						}
 					};
 					res.render('medicion', data);
@@ -127,14 +127,13 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					fecha : req.query.date,
 					details : detalles,
 					sensor_id : req.params.sensor,
-					estacion_id : require.params.estacion,
+					estacion_id : req.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
 					mediciones : mediciones,
 					medicionesayer : medicionesayer,
-					today : false
+					today : today
 					}
-		
 			};
 	 		res.render('medicion', data);
 		}
