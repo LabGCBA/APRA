@@ -127,7 +127,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					fecha : req.query.date,
 					details : detalles,
 					sensor_id : req.params.sensor,
-					estacion_id : req.params.estacion,
+					estacion_id : require.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
 					mediciones : mediciones,
@@ -167,7 +167,7 @@ app.get('/estacion', function(req, res){
 		res.render('estacion', data);
 	})
 });
- 	
+
 app.get('/', function (req, res) {
 		res.render('index');
 });

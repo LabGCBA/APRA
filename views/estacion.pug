@@ -24,7 +24,7 @@ html(lang='en')
                     td
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= estacion.Id
           .col-sm-10
-            h2 Añadir Estación
+            h2.moverh2 Añadir Estación
           .col-md-12 
             button.btn.btn-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
             #demo.collapse
@@ -39,7 +39,7 @@ html(lang='en')
                   label(for='') Modelo
                   input.form-control(type='', id='', placeholder='')
                 .form-group
-                  label(for='') Inicio Actividad
+                  label.cambiar1(for='') Inicio Actividad
                   input.form-control(type='', id='', placeholder='')
                 .form-group
                   label(for='') Marca
@@ -48,4 +48,4 @@ html(lang='en')
                   label(for='') Estado
                   input.form-control(type='', id='', placeholder='')
               .center-block
-                button(onclick='getData('+estacion.Id+')').btn.btn-info Añadir Estacion
+                button(onclick='getData('+estacion.Id+')').btn.btn-info.moverboton Añadir Estacion

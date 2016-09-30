@@ -6,6 +6,10 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
     title
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
+    link(rel='stylesheet', href='main.css')
+    script(src='http://code.jquery.com/jquery-latest.js')
+    script(src='arriba.js')
+    link(rel='stylesheet', href='fonts.css')
     script.
       data = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
       estacion = data.estacion_id;
@@ -101,12 +105,12 @@ html(lang='en')
       }
   body        
     .container
-      h1= data.estacion_id.toUpperCase()
-      h2= data.sensor_id
+      h1.claseh1(style='margin-right: 56px;')= data.estacion_id.toUpperCase()
+      h2.claseh2= data.sensor_id
       if(data.today)
         #promedios
-              label Promedios:
-              select(onchange='buscarProm(this.options[this.selectedIndex].value)')
+              control-label Promedios:
+              select.prome(onchange='buscarProm(this.options[this.selectedIndex].value)')
                 option(value=1) Última hora
                 option(value=3) Últimas 3 hs
                 option(value=8) Últimas 8 hs
@@ -124,9 +128,9 @@ html(lang='en')
         else
           button.btn.btn-primary(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
         .form-group(style='margin-top: 50px; margin-left:-90px;')
-          label.col-sm-2.control-label(for='inputPassword', style='padding-top: 10px; padding-left: 115px; top: -20px; vertical-align: middle;') SENSOR
+          label.col-sm-2.control-label.controlsensor(for='inputPassword') SENSOR
           .col-sm-10(style='top: -82px;')
-            select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control
+            select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control.selectsensor
               for sensor in data.sensores
                 if data.sensor_id == sensor.Id
                   option(value=sensor.Id, selected)= sensor.Id
@@ -140,7 +144,10 @@ html(lang='en')
                     input(type='date', name='date')#FromDate
                   hr
                   input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
-          .col-md-12  
+
+          span.ir-arriba.icon-arrow-up
+          .col-md-12
+
             if(data.fecha && !data.details)
                 button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-info Detalles del día
             #contacts        
