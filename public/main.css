@@ -49,13 +49,14 @@ border-color: #ccc;
 }
 
 #atras {
-  position: fixed;
+  position: absolute;
   top: 100px;
   z-index: 2;
-  left: 250px;
   width: 80px;
   height: 35px;
   border: 1px black;
+  margin-left: -100;
+
 }
 
 .form-group select {
@@ -303,3 +304,5 @@ form{
   display: none;
 }
 label{margin-right: 900px;}
+
+.clase3{margin-right: 75px;}
