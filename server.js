@@ -17,6 +17,25 @@ var sensores = [];
 var mediciones = [];
 var medicionesayer = [];
 var medicioneshoy = [];
+var dictionary = {
+  "laboca" : "La Boca",
+  "cordoba" : "Córdoba",
+  "centenario" : "Centenario",
+  "atmpressure" : ["Presión Atmosférica", "hPa"],
+  "ozon" : ["Ozono - O3", "ppb"],
+  "temperature" : ["Temperatura", "°C"],
+  "carbonoxide" : ["Monóxido de Carbono - CO", "ppb"],
+  "nitricoxide" : ["Óxido nítrico - NO", "ppb"],
+  "mononitrogenoxide" : ["Óxidos de Nitrógeno - NOx","ppb"],
+  "nitricdioxide" : ["Dióxido de Nitrógeno - NO2", "ppb"],
+  "particulatematter" : ["Particulado menor a 10 - PM10", "ug/m3"],
+  "winddirection" : ["Dirección del viento", "grados"],
+  "windspeed" : ["Velocidad del viento", "m/s"],
+  "relativehumidity" : ["Humedad relativa","%"],
+  "globalradiation" : ["Radiación global", "W/m2"],
+  "rain" : ["Lluvia", "mm"],
+  "uva" : ["Radiación Ultravioleta A - UV-A", "x"],
+}
 
 function listApi(busq, lista, callback){
 	url = "http://bapocbulkserver.azurewebsites.net/api1/";
@@ -36,7 +55,6 @@ function listApi(busq, lista, callback){
 	});
 }
 
-console.log("El aqi del Ozono para 0.064 es " + aqi.calcularAqi(0.064, "ozone"));
 
 app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
 	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
@@ -95,7 +113,8 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : today
+						today : today,
+						dictionary : dictionary,
 						}
 					};
 					res.render('medicion', data);
@@ -113,7 +132,8 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : today
+						today : today,
+						dictionary : dictionary,
 						}
 					};
 					res.render('medicion', data);
@@ -132,7 +152,8 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					sensores : sensores,
 					mediciones : mediciones,
 					medicionesayer : medicionesayer,
-					today : today
+					today : today,
+					dictionary : dictionary,
 					}
 			};
 	 		res.render('medicion', data);
@@ -147,7 +168,8 @@ app.get('/sensores/:estacion', function(req, res){
 					estacion_id: req.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
-					mediciones : mediciones
+					mediciones : mediciones,
+					dictionary : dictionary,
 					}
 				};
 	 res.render('sensor', data);
@@ -160,7 +182,8 @@ app.get('/estacion', function(req, res){
 					data : {
 					estaciones : estaciones,
 					sensores : sensores,
-					mediciones : mediciones
+					mediciones : mediciones,
+					dictionary : dictionary,
 					}
 				};
 		res.render('estacion', data);
