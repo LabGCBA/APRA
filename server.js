@@ -36,7 +36,7 @@ function listApi(busq, lista, callback){
 	});
 }
 
-console.log(aqi.calcularAqi(0.064, "ozone"));
+console.log("El aqi del Ozono para 0.064 es " + aqi.calcularAqi(0.064, "ozone"));
 
 app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
 	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
@@ -95,7 +95,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : true
+						today : today
 						}
 					};
 					res.render('medicion', data);
@@ -113,7 +113,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 						mediciones : mediciones,
 						medicioneshoy : medicioneshoy,
 						medicionesayer : medicionesayer,
-						today : true
+						today : today
 						}
 					};
 					res.render('medicion', data);
@@ -127,14 +127,13 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					fecha : req.query.date,
 					details : detalles,
 					sensor_id : req.params.sensor,
-					estacion_id : require.params.estacion,
+					estacion_id : req.params.estacion,
 					estaciones : estaciones,
 					sensores : sensores,
 					mediciones : mediciones,
 					medicionesayer : medicionesayer,
-					today : false
+					today : today
 					}
-		
 			};
 	 		res.render('medicion', data);
 		}
