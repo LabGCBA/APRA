@@ -40,5 +40,10 @@
   right: 20px; 
   z-index: 2;
   -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+@media screen and (max-width: 400px){
+
+  .ir-arriba{margin-right: -16px; padding: 6px;}
 
 }
