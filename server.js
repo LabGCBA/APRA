@@ -8,6 +8,8 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var CronJob = require('cron').CronJob;
+var json2csv = require('json2csv');
+var asyncWhile = require('async-while');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -54,7 +56,24 @@ function listApi(busq, lista, callback){
 		callback();
 	});
 }
-
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
+	var desde = new Date(req.params.from);
+	var detalles = req.params.details;
+	var fields = ['At', 'State', 'Active'];
+	if (detalles == "true")
+		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
+	else
+		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
+	listApi(get, "mediciones", function(){
+		var result = json2csv({ data: mediciones, fields: fields });
+		res.send(result);
+	});		
+});
 
 app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
 	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
