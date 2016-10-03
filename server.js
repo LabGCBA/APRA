@@ -7,9 +7,7 @@ var aqi = require('./aqi');
 app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
-var CronJob = require('cron').CronJob;
 var json2csv = require('json2csv');
-var asyncWhile = require('async-while');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -71,7 +69,11 @@ app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
 	listApi(get, "mediciones", function(){
 		var result = json2csv({ data: mediciones, fields: fields });
-		res.send(result);
+		res.setHeader('Content-disposition', 'attachment; filename='+ req.params.from +'.csv');
+		res.setHeader('Content-type', 'text/plain');
+		res.charset = 'UTF-8';
+		res.write(result);
+		res.end();
 	});		
 });
 
