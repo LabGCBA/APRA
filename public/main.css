@@ -242,7 +242,7 @@ label{float: left;}
     .table{width: 100%; margin-left:-30px; }
     form{width: 130%; margin-left: -45px; margin-top: -59px}
     .btn-info{margin-right: 20px;}
-    #atras{width: 60px; height: 30px; margin-left: -140px;}
+    #atras{width: 60px; height: 30px; margin-left: -125px; margin-top: -25px;}
     #contacts{width: 120%;}
     .moverh2{margin-right: 450px; margin-top: 55px;}
     .moverboton{margin-left: 22px;}
@@ -256,7 +256,7 @@ label{float: left;}
     .moverizquierda2{margin-left: -388px;}
     #btnSubmit{width: 23%; margin-right: 104px;}
     #selector{width: 225px; border-top: 0px; margin-left: -45px; margin-top: 15px;}
-    #promedios{margin-left: -35px; margin: 25px; width: 0px; display: inline-flex; margin-top: 50px;}
+    #promedios{margin-left: -14px; width: 50%; display: inline-table; margin-top: 50px;}
     label{margin-right: 14px; margin-top: -2px;}
    .moverlabel{margin-left: -141px; margin-top: -28px;}
    .claseh1{margin-left: -80px;}
@@ -265,7 +265,7 @@ label{float: left;}
    .selectsensor{width: 34%;}
    .controlsensor{top: -50px; margin-left: -150px; padding-top: 30px;}
    hr{border-top: 0}
-
+ }
 
 /*TABLET
 @media screen and (max-width: 720px){
