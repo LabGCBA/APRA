@@ -218,7 +218,7 @@ line-height: 60px;
 .col-sm-2{
   padding-top: 7px;
   padding-left: 117px;
-  top: 43px;
+  top: -18px;
 }
 .col-sm-10{
   margin-top: 15px;
@@ -306,3 +306,8 @@ form{
 label{margin-right: 900px;}
 
 .clase3{margin-right: 75px;}
+.moverboton{margin-right: -101px;}
+.cambiar1{width: 10%;}
+.cambiar{width: 15%;}
+.moversubir{top:42px;}
+

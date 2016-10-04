@@ -156,7 +156,7 @@ html(lang='en')
                   tr
                     th Timestamp
                     th Valor
-                    if(data.fecha)
+                    if(data.fecha && !data.details)
                       th Estado
                     if(data.details)
                       th Estado
