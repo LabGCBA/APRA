@@ -192,6 +192,7 @@ html(lang='en')
                               button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
                       else
                         td 
-                          button.btn.btn-outline-info Descargar
+                          a.btn.btn-outline-info(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+medicion.Day.substring(0,10)+'/details=false',download) Descargar CSV
+
 
                       
