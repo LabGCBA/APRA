@@ -311,3 +311,24 @@ label{margin-right: 900px;}
 .cambiar{width: 15%;}
 .moversubir{top:42px;}
 
+.btn-outline-success{
+  margin-top: 20px;
+  color: #5cb85c;
+  background-image: none; 
+  background-color: transparent;
+  border-color: #5cb85c;
+}
+
+.btn-outline-info{
+  color: #5bc0de;
+  background-image: none;
+  background-color: transparent;
+  border-color: #5bc0de;
+}
+
+.btn-outline-primary{
+  color: #0275d8;
+  background-image: none;
+  background-color: transparent;
+  border-color: #0275d8;
+}

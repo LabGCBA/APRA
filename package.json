@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/devtodev/APRA-backend#readme",
   "dependencies": {
+    "async-while": "^1.1.0",
     "body-parser": "^1.15.2",
     "ejs": "^2.5.1",
     "express": "^4.14.0",
+    "json2csv": "^3.7.0",
     "mysql": "^2.11.1",
     "node-cron": "^1.1.2",
     "requestify": "^0.2.3"

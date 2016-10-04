@@ -1,4 +1,5 @@
 -var datos = JSON.stringify(data)
+-var dictionary = data.dictionary
 doctype html
 html(lang='en')
   head
@@ -80,15 +81,15 @@ html(lang='en')
       function buscarProm(cant){
         if(!dias)
           datosMed = data.medicioneshoy;
-        horas = datosMed.length/4;
+        horas = datosMed.length;
         long = datosMed.length;
         if (cant <= horas){
           var tot = 0;
-          for(i = long-1; i >= long-cant*4; i--){
+          for(i = long-1; i >= long-cant; i--){
             tot += datosMed[i].State;
           }
-          var prom = tot/(cant*4);
-          $("#valor").val(prom);
+          var prom = tot/(cant);
+          $("#valor").val(prom.toFixed(2) + " " + (data.dictionary[sensor])[1]);
         }
         else {
           var tot = 0;
@@ -96,17 +97,17 @@ html(lang='en')
           for(i = long-1; i >= 0; i--){
             tot += datosMed[i].State;
           }
-          for(i=longayer-1; i >= longayer - (cant*4-long); i--){
+          for(i=longayer-1; i >= longayer - (cant-long); i--){
             tot += datosAyer[i].State;
           }
-          var prom = tot /(cant*4);
-          $("#valor").val(prom);
+          var prom = tot /(cant);
+          $("#valor").val(prom.toFixed(2) + " " + (data.dictionary[sensor])[1]);
         }
       }
   body        
     .container
-      h1.claseh1(style='margin-right: 56px;')= data.estacion_id.toUpperCase()
-      h2.claseh2= data.sensor_id
+      h1.claseh1(style='margin-right: 56px;')= (dictionary[data.estacion_id])
+      h2.claseh2= dictionary[data.sensor_id][0]
       if(data.today)
         #promedios
               control-label Promedios:
@@ -133,9 +134,9 @@ html(lang='en')
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control.selectsensor
               for sensor in data.sensores
                 if data.sensor_id == sensor.Id
-                  option(value=sensor.Id, selected)= sensor.Id
+                  option(value=sensor.Id, selected)= dictionary[sensor.Id][0]
                 else
-                  option(value=sensor.Id)= sensor.Id
+                  option(value=sensor.Id)= dictionary[sensor.Id][0]
           .col-md-12        
             #selector
                 form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
@@ -143,24 +144,34 @@ html(lang='en')
                     label(for='FromDate') Ingresa Fecha:
                     input(type='date', name='date')#FromDate
                   hr
-                  input#btnSubmit.btn.btn-success(type='submit',value='Buscar')
+                  input#btnSubmit.btn.btn-outline-success(type='submit',value='Buscar')
 
           span.ir-arriba.icon-arrow-up
           .col-md-12
 
             if(data.fecha && !data.details)
-                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-info Detalles del día
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-outline-info Detalles del día
+            
+            if(data.fecha)
+              if(data.details)
+                a.btn.btn-outline-success(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+data.fecha+'/details=true',download) Descargar CSV
+              else
+                a.btn.btn-outline-success(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+data.fecha+'/details=false',download) Descargar CSV
             #contacts        
               table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla 
                 thead 
                   tr
                     th Timestamp
+                    
                     th Valor
+                    th Unidad
                     if(data.fecha && !data.details)
                       th Estado
                     if(data.details)
                       th Estado
                       th Borrar
+                    if (!data.fecha)
+                      th Descargar Promedios
                 tbody
                   for medicion in data.mediciones
                     tr
@@ -170,6 +181,7 @@ html(lang='en')
                         else
                           = medicion.At
                       td= medicion.State
+                      td= dictionary[data.sensor_id][1]
                       if(data.fecha)
                         td= medicion.Active
                         if (data.details)
@@ -178,3 +190,8 @@ html(lang='en')
                               button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
                             else
                               button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
+                      else
+                        td 
+                          button.btn.btn-outline-info Descargar
+
+                      

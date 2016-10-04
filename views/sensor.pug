@@ -1,3 +1,4 @@
+-var dictionary = data.dictionary
 doctype html
 html(lang='en')
   head
@@ -10,7 +11,7 @@ html(lang='en')
     link(href='main.css', rel='stylesheet', type='text/css')
   body
     .container
-      h2.moverizquierda= data.estacion_id.toUpperCase()
+      h2.moverizquierda= dictionary[data.estacion_id]
       .row(style='margin-right= 0px;')
         button.btn.btn-primary(type='button', onclick='getData("estacion");')#atras Atras
         .form-group(style='margin-top:100px; margin-left:-90px;')
@@ -38,11 +39,11 @@ html(lang='en')
                 for sensor in data.sensores
                   tr
                     td
-                      a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= sensor.Id
+                      a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= (dictionary[sensor.Id])[0]
           .col-sm-10
             h2 Añadir Sensor
           .col-md-12
-            button.btn.btn-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
+            button.btn.btn-outline-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
             #demo.collapse
              form(action='url', method='POST')
               .form-group
@@ -70,4 +71,4 @@ html(lang='en')
                   else
                     option(value='cordoba') Cordoba
               .center-block()
-                button.btn.btn-info(type='submit', style='margin-right:-80;') Añadir Sensor
+                button.btn.btn-outline-info(type='submit', style='margin-right:-80;') Añadir Sensor

@@ -1,3 +1,4 @@
+-var dictionary = data.dictionary
 doctype html
 html(lang='en')
   head
@@ -22,11 +23,11 @@ html(lang='en')
                 for estacion in data.estaciones
                   tr
                     td
-                      a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= estacion.Id
+                      a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= dictionary[estacion.Id]
           .col-sm-10
             h2.moverh2 Añadir Estación
           .col-md-12 
-            button.btn.btn-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
+            button.btn.btn-outline-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
             #demo.collapse
               form(action='url', method='POST')
                 .form-group
@@ -48,4 +49,4 @@ html(lang='en')
                   label(for='') Estado
                   input.form-control(type='', id='', placeholder='')
               .center-block
-                button(onclick='getData('+estacion.Id+')').btn.btn-info.moverboton Añadir Estacion
+                button(onclick='getData('+estacion.Id+')').btn.btn-outline-primary.moverboton Añadir Estacion
