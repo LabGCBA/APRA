@@ -8,7 +8,6 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var json2csv = require('json2csv');
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -50,6 +49,8 @@ function listApi(busq, lista, callback){
 			case "medicionesayer" : medicionesayer = response.getBody();
 				break;
 			case "medicioneshoy" : medicioneshoy = response.getBody();
+				break;
+			case "promedioaqi" : promedioaqi = response.getBody();
 		}
 		callback();
 	});
@@ -212,6 +213,11 @@ app.get('/estacion', function(req, res){
 				};
 		res.render('estacion', data);
 	})
+});
+
+app.get('/promedioaqi', function(req, res) {
+  		res.render('promedioaqi');
+
 });
 
 app.get('/', function (req, res) {

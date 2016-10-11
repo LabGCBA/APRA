@@ -314,7 +314,7 @@ label{margin-right: 900px;}
 .btn-outline-success{
   margin-top: 20px;
   color: #5cb85c;
-  background-image: none; 
+  background-image: none;
   background-color: transparent;
   border-color: #5cb85c;
 }
@@ -331,4 +331,13 @@ label{margin-right: 900px;}
   background-image: none;
   background-color: transparent;
   border-color: #0275d8;
+}
+.btn-outline-danger {
+    color: #d9534f;
+    background-image: none;
+    background-color: transparent;
+    border-color: #d9534f;
+}
+.canvasjs-chart-credit {
+   display: none;
 }

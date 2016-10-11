@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title Aqi promedio
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css', integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', crossorigin='anonymous')
+  body
+    .caja_superior
+      h2 PROMEDIO AQI
+    #tabs-1.col-md-6
+      form#aqi(name='form1')
+        table(style='padding:5px')
+          tr
+            td
+          tr
+            th(style='text-align:center')
+              center
+                | Selecionar Polucion
+          tr
+            td
+              select(onchange='return UnitDetermin(form)', size='1', name='pollutant')
+                option(value='0', selected='selected')  
+                option(value='1') PM2.5 - Particulate <2.5 microns  
+                option(value='2') PM10 - Particulate <10 microns 
+                option(value='3') CO - Carbon Monoxide 
+                option(value='4') SO2 - Sulfur Dioxide  
+                option(value='5') O3 - Ozone
+                option(value='6') NO2 - Nitrogen Dioxide 
+    .col-md-6
+      form(name='form1')
+        table(style='padding:5px')
+          tr
+            td
+          tr
+            th(style='text-align:center')
+              center
+                | Selecionar Estacion
+          tr
+            td
+              select(onchange='return UnitDetermin(form)', size='1', name='pollutant')
+                option(value='0', selected='selected')  
+                option(value='1') Centenario
+                option(value='2') Cordoba
+                option(value='3') La Boca

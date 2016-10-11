@@ -51,10 +51,17 @@ html(lang='en')
                 title: {
                   text: "Datos del día"
                 },
+                axisX:{
+                  title:" Horarios",
+                },
+                axisY:{
+                  title:"Unidades",
+                },
                             animationEnabled: true,
                 data: [
                 {
                   type: "spline",
+                  color: "rgba(83, 223, 128, .6)",
                   dataPoints: []
                 }
                 ]
@@ -68,14 +75,15 @@ html(lang='en')
         chart.render();
               }
                   var now = new Date();
-                  var month = (now.getMonth() + 1);               
+                  var month = (now.getMonth() + 1);
                   var day = now.getDate();
-                  if(month < 10) 
+                  if(month < 10)
                       month = "0" + month;
-                  if(day < 10) 
+                  if(day < 10)
                       day = "0" + day;
-                  var today = now.getFullYear() + "-" + month + "-" + day; 
+                  var today = now.getFullYear() + "-" + month + "-" + day;
                   $('#FromDate').attr("value", today);
+
               });
       buscarProm(1);
       function buscarProm(cant){
@@ -104,7 +112,7 @@ html(lang='en')
           $("#valor").val(prom.toFixed(2) + " " + (data.dictionary[sensor])[1]);
         }
       }
-  body        
+  body
     .container
       h1.claseh1(style='margin-right: 56px;')= (dictionary[data.estacion_id])
       h2.claseh2= dictionary[data.sensor_id][0]
@@ -137,7 +145,7 @@ html(lang='en')
                   option(value=sensor.Id, selected)= dictionary[sensor.Id][0]
                 else
                   option(value=sensor.Id)= dictionary[sensor.Id][0]
-          .col-md-12        
+          .col-md-12
             #selector
                 form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
                   #fecha
@@ -151,18 +159,18 @@ html(lang='en')
 
             if(data.fecha && !data.details)
                 button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-outline-info Detalles del día
-            
+
             if(data.fecha)
               if(data.details)
                 a.btn.btn-outline-success(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+data.fecha+'/details=true',download) Descargar CSV
               else
                 a.btn.btn-outline-success(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+data.fecha+'/details=false',download) Descargar CSV
-            #contacts        
-              table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla 
-                thead 
+            #contacts
+              table.table.table-bordered.table-inverse(style='margin-top:30px;')#tabla
+                thead
                   tr
                     th Timestamp
-                    
+
                     th Valor
                     th Unidad
                     if(data.fecha && !data.details)
@@ -187,12 +195,9 @@ html(lang='en')
                         if (data.details)
                           td
                             if (medicion.Active)
-                              button.btn.btn-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
+                              button.btn.btn-outline-danger(onclick='eliminarMedicion("'+medicion.At+'");') Borrar
                             else
-                              button.btn.btn-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
+                              button.btn.btn-outline-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
                       else
-                        td 
+                        td
                           a.btn.btn-outline-info(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+medicion.Day.substring(0,10)+'/details=false',download) Descargar CSV
-
-
-                      
