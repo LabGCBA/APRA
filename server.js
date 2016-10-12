@@ -23,7 +23,7 @@ var dictionary = {
   "atmpressure" : ["Presión Atmosférica", "hPa"],
   "ozon" : ["Ozono - O3", "ppb"],
   "temperature" : ["Temperatura", "°C"],
-  "carbonoxide" : ["Monóxido de Carbono - CO", "ppb"],
+  "carbonoxide" : ["Monóxido de Carbono - CO", "ppm"],
   "nitricoxide" : ["Óxido nítrico - NO", "ppb"],
   "mononitrogenoxide" : ["Óxidos de Nitrógeno - NOx","ppb"],
   "nitricdioxide" : ["Dióxido de Nitrógeno - NO2", "ppb"],
