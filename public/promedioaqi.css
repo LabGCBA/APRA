@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+body, html {
+  font-family: 'Lato', sans-serif;
+  font-size:14px;
+  padding: 0px;
+  margin: 0px;
+  height: auto;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+h1{
+  text-align: center;
+  margin-top: 20px;
+}
+.btn-outline-success&.btn-outline-info{
+  text-align: center;
+
+}
+.btn-outline-success{
+  margin-top: 20px;
+  color: #5cb85c;
+  background-image: none;
+  background-color: transparent;
+  border-color: #5cb85c;
+  margin-left: 520px;
+  margin-top: 90px;
+}
+.btn-outline-info{
+  margin-top: 20px;
+  color: #5cb85c;
+  background-image: none;
+  background-color: transparent;
+  border-color: #5cb85c;
+  margin-left: 500px;
+  margin-top: 90px;
+}
+.caja_superior{
+  margin-top: 60px;
+}
+.container2 {
+  background-color: #f9dd00;
+  background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));
+  height: 34px;
+}
+
+
+.table-reflow{
+  margin-top: 400px;
+}
+td{
+  color: #fff;
+}
+select{
+  color: black;
+}

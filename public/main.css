@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 body, html {
   font-family: 'Lato', sans-serif;
   font-size:14px;
   padding: 0px;
-  margin: 0px;
+  margin: 0px
   height: auto;
 }
 

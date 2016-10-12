@@ -5,12 +5,15 @@ html
     title Aqi promedio
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css', integrity='sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp', crossorigin='anonymous')
+    link(rel='stylesheet', href='promedioaqi.css')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
+    link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet')
   body
     .caja_superior
-      h2 PROMEDIO AQI
-    #tabs-1.col-md-6
-      form#aqi(name='form1')
-        table(style='padding:5px')
+      h1 Promedio AQI
+    .container
+      form(name='form1', style='margin-top: 65px;')
+        table(style='padding:5px; float:right;')
           tr
             td
           tr
@@ -19,27 +22,60 @@ html
                 | Selecionar Polucion
           tr
             td
-              select(onchange='return UnitDetermin(form)', size='1', name='pollutant')
-                option(value='0', selected='selected')  
-                option(value='1') PM2.5 - Particulate <2.5 microns  
-                option(value='2') PM10 - Particulate <10 microns 
-                option(value='3') CO - Carbon Monoxide 
-                option(value='4') SO2 - Sulfur Dioxide  
+              select(onchange='', name='polucion', style='padding-right: 24px;')
+                option(value='0', selected='selected')
+                option(value='1') PM25 - Particulate 2.5
+                option(value='2') PM10 - Particulate 10
+                option(value='3') CO - Carbon Monoxide
+                option(value='4') SO2 - Sulfur Dioxide
                 option(value='5') O3 - Ozone
-                option(value='6') NO2 - Nitrogen Dioxide 
-    .col-md-6
-      form(name='form1')
-        table(style='padding:5px')
+                option(value='6') NO2 - Nitrogen Dioxide
+        form(name='form2')
+          table(style='padding:5px')
+            tr
+              td
+            tr
+              th(style='text-align:center')
+                center
+                  | Selecionar Estacion
+            tr
+              td
+                select(onchange='', name='estaciones', style='padding-right: 50px;')
+                  option(value='0', selected='selected')
+                  option(value='1') Centenario
+                  option(value='2') Cordoba
+                  option(value='3') La Boca
+    .container(style='margin-top: 115px; margin-left: -118px;')
+      button.btn.btn-outline-success(type='button') Consultar
+    .table.table-reflow
+      table.table
+        thead(style='background-color: darkgrey;')
           tr
-            td
+            th AQI
+            th Clasificacion
+            th Precauciones para Protegerse del Ozono
+        tbody
           tr
-            th(style='text-align:center')
-              center
-                | Selecionar Estacion
+            th(scope='row') 0 - 50
+            td(style='background-color: green;') Buena
+            th Ninguna.
           tr
-            td
-              select(onchange='return UnitDetermin(form)', size='1', name='pollutant')
-                option(value='0', selected='selected')  
-                option(value='1') Centenario
-                option(value='2') Cordoba
-                option(value='3') La Boca
+            th(scope='row') 51 - 100
+            td(style='background-color: yellow;') Moderada
+            th
+              | Las personas extraordinariamente sensitivas deben considerar limitar los esfuerzos prolongados al aire libre.
+          tr
+            th(scope='row') 101 - 150
+            td(style='background-color: orange;') Dañina a la Salud de los Grupos Sensitivos
+            th
+              | Los niños y adultos activos, y las personas con enfermedades respiratorias, tales como el asthma, deven limitar los esfuerzos prologados al aire libre.
+          tr
+            th(scope='row') 151 - 200
+            td(style='background-color: red;') Dañina a la Salud
+            th
+              | Los niños y adultos activos, y las personas con enfermedades respiratorias, tales como el asthma, deben evitar el esfuerzo prolongado al aire libre; todos los demas, especialmente los niños, deben limitar el esfuerzo prolongado al aire libre.
+          tr
+            th(scope='row') 201 - 300
+            td(style='background-color: #800080;') Muy Dañina a la Salud
+            th
+              | Los niños y adultos activos, y las personas con enfermedades respiratorias tales como el asthma, deben evitar cualquier esfuerzo al aire libre; todos los demas, especialmente los niños, deben limitar los esfuerzos al aire libre.

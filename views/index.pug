@@ -9,6 +9,7 @@ html
     script(type="text/javascript", src="canvasjs.min.js")
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css')
     link(href='main.css', rel='stylesheet', type='text/css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
       $("#result").html("<div id='juntador'><div class='loader'></div></div>");
       $.get("http://"+window.location.host+"/estacion", function(data){
@@ -39,5 +40,5 @@ html
       li
         a(onclick='getData("sensores/cordoba");') Córdoba
       li
-        a(href='promedioaqi.pug') Promedio AQI
+        a(onclick='getData("promedioaqi");') Promedio AQI
     #result

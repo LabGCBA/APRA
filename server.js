@@ -99,7 +99,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 		dia = date[2];
 		if (anio==now.getFullYear() && mes == now.getMonth()+1 && dia == now.getDate())
 			today = true;
-		else 
+		else
 			today = false;
 		prom = true;
 		if(req.query.details){
@@ -163,7 +163,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 					};
 					res.render('medicion', data);
 				}
-			
+
 		});
 		}
 		else {
@@ -217,7 +217,6 @@ app.get('/estacion', function(req, res){
 
 app.get('/promedioaqi', function(req, res) {
   		res.render('promedioaqi');
-
 });
 
 app.get('/', function (req, res) {
