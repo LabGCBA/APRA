@@ -6,13 +6,11 @@ body, html {
   margin: 0px
   height: auto;
 }
-
 .container {
   position: absolute;
   width: 100%;
   height: 100%;
 }
-
 #detalles {
   margin: 0px;
   display: block;
@@ -21,7 +19,6 @@ body, html {
   margin-right: auto;
   width: 150px; overflow-x:
 }
-
 #promedios {
   margin-left: auto;
   margin-right: auto;
@@ -29,26 +26,21 @@ body, html {
   margin-top: 50px;
   width: 50%;
 }
-
 #promedios label, input[type=text], select {
   text-align: center;
   margin: 15px;
 }
-
 .btn-default {
 color: #333;
 background-color: #fff;
 border-color: #ccc;
 }
-
 #header img{
   margin-top: 3px;
 }
-
 #contacts{
   margin-top : 30px;
 }
-
 #atras {
   position: absolute;
   top: 100px;
@@ -57,13 +49,10 @@ border-color: #ccc;
   height: 35px;
   border: 1px black;
   margin-left: -100;
-
 }
-
 .form-group select {
   margin-left: 0px;
 }
-
 #selector {
   width: 385px;
   margin-left: auto;
@@ -83,20 +72,17 @@ border-color: #ccc;
   width: 65%;
   padding-top: 20px;
 }
-
 #btnSubmit{
   width: 20%;
   margin: auto;
   display: block;
   position: relative;
 }
-
 #juntador {
   height: 100%;
   vertical-align: middle;
   margin-top: 200px;
 }
-
 .loader {
   margin-left: auto;
   margin-right: auto;
@@ -108,17 +94,14 @@ border-color: #ccc;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
-
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 .container2 {
   background-color: #f9dd00;
   background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));
@@ -142,7 +125,6 @@ h2 {
   height: 100%;
   margin-left: 130px;
 }
-
 .btn {
 display: inline-block;
 padding: 6px 12px;
@@ -162,11 +144,9 @@ background-image: none;
 border: 1px solid transparent;
 border-radius: 4px;
 }
-
 #page-content-wrapper {
 width: 100%;
 }
-
 .sidebar {
   list-style-type:none;
   background-color:#333;
@@ -181,19 +161,16 @@ width: 100%;
   transition:1s ease;
   font-family: 'Lato', sans-serif;
 }
-
 .sidebar a {
   text-decoration:none;
   color:white;
   transition:1s ease;
 }
-
 .sidebar li {
   text-indent: 20px;
   line-height: 40px;
   transition:0.5s ease;
 }
-
 #chart {
   width: 70%;
   height: 400px;
@@ -201,13 +178,11 @@ width: 100%;
   margin-right: auto;
   margin-bottom: 20px;
 }
-
 .sidebar li:hover {
   background-color:#777;
   cursor:pointer;
   text-indent: 30px;
 }
-
 .sidebar > .sidebar-brand {
 height: 65px;
 font-size: 18px;
@@ -235,6 +210,7 @@ line-height: 60px;
 label{float: left;}
 
 /*MOBILE*/
+
 @media screen and (max-width: 400px){
     .container{width: 50%;}
     .sidebar{width: 25%; height: 950px;}
@@ -305,7 +281,6 @@ form{
   display: none;
 }
 label{margin-right: 900px;}
-
 .clase3{margin-right: 75px;}
 .moverboton{margin-right: -101px;}
 .cambiar1{width: 10%;}
@@ -319,26 +294,24 @@ label{margin-right: 900px;}
   background-color: transparent;
   border-color: #5cb85c;
 }
-
 .btn-outline-info{
   color: #5bc0de;
   background-image: none;
   background-color: transparent;
   border-color: #5bc0de;
 }
-
 .btn-outline-primary{
   color: #0275d8;
   background-image: none;
   background-color: transparent;
   border-color: #0275d8;
 }
-.btn-outline-danger {
+.btn-outline-danger{
     color: #d9534f;
     background-image: none;
     background-color: transparent;
     border-color: #d9534f;
 }
-.canvasjs-chart-credit {
+.canvasjs-chart-credit{
    display: none;
 }

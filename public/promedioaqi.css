@@ -6,7 +6,6 @@ body, html {
   margin: 0px;
   height: auto;
 }
-
 .container {
   position: absolute;
   width: 100%;
@@ -18,7 +17,6 @@ h1{
 }
 .btn-outline-success&.btn-outline-info{
   text-align: center;
-
 }
 .btn-outline-success{
   margin-top: 20px;
@@ -41,13 +39,6 @@ h1{
 .caja_superior{
   margin-top: 60px;
 }
-.container2 {
-  background-color: #f9dd00;
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#ffe603),to(#ffbd04));
-  height: 34px;
-}
-
-
 .table-reflow{
   margin-top: 400px;
 }
