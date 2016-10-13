@@ -59,7 +59,7 @@ border-color: #ccc;
   margin-right: auto;
   border-radius: 15px;
   background-color: gainsboro;
-  height: 155px;
+  height: 200px;
   margin-top: 110px;
   align-content: center;
 }
@@ -77,6 +77,7 @@ border-color: #ccc;
   margin: auto;
   display: block;
   position: relative;
+  margin-top: 20px;
 }
 #juntador {
   height: 100%;

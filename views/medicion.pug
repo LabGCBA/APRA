@@ -151,7 +151,10 @@ html(lang='en')
                   #fecha
                     label(for='FromDate') Ingresa Fecha:
                     input(type='date', name='date')#FromDate
-                  hr
+                    br
+                    label(for='FromDate') Ingresar Mes o Año:
+                    input(type='month', name='date')#FromDate
+
                   input#btnSubmit.btn.btn-outline-success(type='submit',value='Buscar')
 
           span.ir-arriba.icon-arrow-up
