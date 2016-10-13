@@ -59,25 +59,28 @@ border-color: #ccc;
   margin-right: auto;
   border-radius: 15px;
   background-color: gainsboro;
-  height: 200px;
-  margin-top: 110px;
+  height: 250px;
+  margin-top: 10px;
   align-content: center;
 }
 #selector label {
   margin-right: 10px;
+}
+#otro {
+  display: inline;
 }
 #fecha {
   margin-left: auto;
   margin-right: auto;
   width: 65%;
   padding-top: 20px;
+  margin-top: 20px;
 }
 #btnSubmit{
-  width: 20%;
-  margin: auto;
-  display: block;
+  width: 30%;
+  margin-left: 20px;
+  display: inline;
   position: relative;
-  margin-top: 20px;
 }
 #juntador {
   height: 100%;

@@ -66,7 +66,7 @@ app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	var detalles = req.params.details;
 	console.log(req.params.from);
 	var fields = ['At', 'State', 'Active'];
-	if (detalles)
+	if (detalles=="true")
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
 	else
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
@@ -91,7 +91,19 @@ app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(re
 
 app.get('/mediciones/:sensor/:estacion', function(req, res){
 	var now = new Date();
-	if(req.query.date){
+	if(req.query.mesanio){
+		date = req.query.mesanio.split("-");
+		anio = date[0];
+		mes = date[1];
+		detalles = false;
+		if (anio==now.getFullYear() && mes == now.getMonth()+1)
+			today = true;
+		else
+			today=false;
+		prom = true;
+		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes;
+	}
+	else if(req.query.date){
 		date = req.query.date;
 		date = date.split("-");
 		anio = date[0];
