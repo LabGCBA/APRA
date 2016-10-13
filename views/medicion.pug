@@ -137,7 +137,7 @@ html(lang='en')
         else
           button.btn.btn-primary(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
         .form-group(style='margin-top: 50px; margin-left:-90px;')
-          label.col-sm-2.control-label.controlsensor(for='inputPassword') SENSOR
+          label.col-sm-2.control-label.controlsensor(for='inputPassword') Contaminante
           .col-sm-10(style='top: -82px;')
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control.selectsensor
               for sensor in data.sensores
@@ -185,10 +185,10 @@ html(lang='en')
                     tr
                       td
                         if(medicion.Day)
-                          a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day
+                          a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day.substring(0,10)
                         else
-                          = medicion.At
-                      td= medicion.State
+                          = medicion.At.substring(12,15)
+                      td= medicion.State.toFixed(2)
                       td= dictionary[data.sensor_id][1]
                       if(data.fecha)
                         td= medicion.Active
