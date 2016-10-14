@@ -8,8 +8,11 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var json2csv = require('json2csv');
+//var passport = require('passport');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 var estaciones = [];
 var sensores = [];
@@ -235,7 +238,17 @@ app.get('/', function (req, res) {
 		res.render('index');
 });
 
+/*app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
 
+  });
+
+
+app.get('/', function(req, res){
+  res.render('login');
+});
+*/
 app.listen(process.env.PORT || 3000, function () {
   console.log("Escuchando en el puerto "+ 3000);
 });
