@@ -5,6 +5,7 @@ body, html {
   padding: 0px;
   margin: 0px;
   height: auto;
+  width: 100%;
 }
 .container {
   position: absolute;
@@ -15,7 +16,7 @@ h1{
   text-align: center;
   margin-top: 20px;
 }
-.btn-outline-success&.btn-outline-info{
+.btn-outline-success .btn-outline-info{
   text-align: center;
 }
 .btn-outline-success{

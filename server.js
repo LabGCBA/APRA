@@ -34,6 +34,9 @@ var dictionary = {
   "globalradiation" : ["Radiación global", "W/m2"],
   "rain" : ["Lluvia", "mm"],
   "uva" : ["Radiación Ultravioleta A - UV-A", "x"],
+  "sulfhidricacid" : ["Ácido Sulfhídrico - H2S", "ppb"],
+  "sulfurdioxide" : ["Dióxido de Azufre - SO2", "ppb"],
+  "unknown" : ["Desconocido" , ""],
 }
 
 function listApi(busq, lista, callback){
@@ -62,7 +65,7 @@ function addDays(date, days) {
 }
 app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	var desde = new Date(req.params.from);
-	desde = addDays(desde, 1);
+	//desde = addDays(desde, 1);
 	var detalles = req.params.details;
 	console.log(req.params.from);
 	var fields = ['At', 'State', 'Active'];
@@ -199,6 +202,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 });
 
 app.get('/sensores/:estacion', function(req, res){
+	console.log(req.params.estacion);
 	listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
