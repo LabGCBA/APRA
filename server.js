@@ -53,6 +53,7 @@ var dictionary = {
   "sulfhidricacid" : ["Ácido Sulfhídrico - H2S", "ppb"],
   "sulfurdioxide" : ["Dióxido de Azufre - SO2", "ppb"],
   "unknown" : ["Desconocido" , ""],
+  "fineparticulatematter" : ["Particulado menor a 2.5 micrones - PM2.5", "ug/m3"],
 }
 
 function listApi(busq, lista, callback){
