@@ -96,8 +96,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 h1{
-	display: inline-block;
+  display: inline-block;
 	font-size: 100px;
 	margin-top: 50px;
-	margin-left: 22px;
+  margin-left: 22px;
 }

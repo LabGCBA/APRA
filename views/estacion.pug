@@ -26,28 +26,24 @@ html(lang='en')
                     td
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= dictionary[estacion.Id]
           .col-sm-10
-            h2.moverh2 Añadir Estación
+            h2.moverh2 Descargar Estacion
           .col-md-12
-            button.btn.btn-outline-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
-            #demo.collapse
-              form(action='url', method='POST')
-                .form-group
-                  label(for='', style='margin-top: 90px;') Estacion_Id
-                  input.form-control(type='', id='', placeholder='')
-                .form-group
-                  label(for='') Ubicacion
-                  input.form-control(type='', id='', placeholder='')
-                .form-group
-                  label(for='') Modelo
-                  input.form-control(type='', id='', placeholder='')
-                .form-group
-                  label.cambiar1(for='') Inicio Actividad
-                  input.form-control(type='', id='', placeholder='')
-                .form-group
-                  label(for='') Marca
-                  input.form-control(type='', id='', placeholder='')
-                .form-group
-                  label(for='') Estado
-                  input.form-control(type='', id='', placeholder='')
-              .center-block
-                button(onclick='getData('+estacion.Id+')').btn.btn-outline-primary.moverboton Añadir Estacion
+              h2 Estaciones
+              form
+                .checkbox
+                  label
+                    input(type='checkbox', value='')
+                    | Option 1
+                .checkbox
+                  label
+                    input(type='checkbox', value='')
+                    | Option 2
+                .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | Option 3
+
+
+          .col-md-12
+
+                button.btn.btn-outline-success(type='button',style='margin-top: 70px;', onclick='getData("estacion");') Descargar
