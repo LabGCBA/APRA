@@ -14,8 +14,8 @@ html(lang='en')
       h1 APRA
     .wrap
       .login-page
-        .form(action='/login', method='post')
-          form.login-form
-            input(type='text', placeholder='usuario')
-            input(type='password', placeholder='contraseña')
-            button INGRESAR
+        .form
+          form(action='/login', method='post')
+            input(type='text', placeholder='usuario', name='usuario')
+            input(type='password', placeholder='contraseña', name='password')
+            input(type='submit', value='INGRESAR', style='background-color:#68C0FF;')

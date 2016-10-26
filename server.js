@@ -8,10 +8,23 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var json2csv = require('json2csv');
-//var passport = require('passport');
+var mongoose = require('mongoose');
+
+var jwt = require('jsonwebtoken');
+var config = require('./config');
+var User = require('./models/user');
+
+
+
+var port = process.env.PORT || 3000;
+mongoose.connect(config.database);
+
+app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
 
 
 var estaciones = [];
@@ -239,21 +252,88 @@ app.get('/promedioaqi', function(req, res) {
   		res.render('promedioaqi');
 });
 
-app.get('/', function (req, res) {
+app.get('/index', function (req, res) {
 		res.render('index');
 });
-
-/*app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
-
-  });
-
 
 app.get('/', function(req, res){
   res.render('login');
 });
-*/
+
+// function setup para la creacion de usuario que luego se guardan en mongo, tome como base el ejemplo
+// jsonwebtoken
+
+//  app.get('/setup', function(req, res) {
+//
+//   var ezequiel = new User({
+//      usuario : 'Ezequiel',
+//      password : '123',
+//      admin: true
+//
+//    });
+//
+//   var admin = new User({
+//     usuario : 'admin',
+//     password : '123',
+//     admin: true
+//   });
+//
+//  ezequiel.save(function(err) {
+//    if (err) throw err;
+//  });
+//
+//   admin.save(function(err) {
+//     if (err) throw err;
+//   });
+//   res.json({ success: true });
+//
+//});
+
+
+var apiRoutes = express.Router();
+
+apiRoutes.get('/users', function(req, res) {
+  User.find({}, function(err, users) {
+    res.json(users);
+  });
+});
+
+//app.use('/api', apiRoutes);
+
+app.post('/login', function(req, res) {
+  console.log('estoy en el login');
+  User.findOne({
+    usuario: req.body.usuario
+  }, function(err, user) {
+
+    if (err) throw err;
+
+    if (!user) {
+      res.json({ success: false, message: 'Usuario incorrecto vuelva a intentar' });
+    } else if (user) {
+
+      if (user.password != req.body.password) {
+        res.json({ success: false, message: 'Password incorrecto vuelva a intentar' });
+      } else {
+
+        var token = jwt.sign(user, app.get('superSecret'), {
+          //expiresInMinutes: 1440
+        });
+
+        // res.json({
+        //   success: true,
+        //   message: 'Enjoy your token!',
+        //   token: token
+        // });
+
+        res.redirect('/index');
+      }
+
+    }
+  });
+});
+
+
 app.listen(process.env.PORT || 3000, function () {
   console.log("Escuchando en el puerto "+ 3000);
 });
