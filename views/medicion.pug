@@ -21,7 +21,7 @@ html(lang='en')
       datosAyer = data.medicionesayer;
       function eliminarMedicion (timestamp){
         var date = new Date(Date.parse(timestamp)+10800000);
-          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), function( data ) {
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: token},function( data ) {
             if(data == "202"){
               alert("Registro eliminado");
             }
@@ -34,7 +34,7 @@ html(lang='en')
       }
        function agregarMedicion (timestamp){
         var date = new Date(Date.parse(timestamp)+10800000);
-          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/add/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), function( data ) {
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/add/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: token},function( data ) {
             if(data == "202"){
               alert("Registro agregado");
             }
@@ -210,4 +210,4 @@ html(lang='en')
                               button.btn.btn-outline-success(onclick='agregarMedicion("'+medicion.At+'");') Agregar
                       else
                         td
-                          a.btn.btn-outline-info(href='./'+data.estacion_id+'/'+data.sensor_id+'/download/'+medicion.Day.substring(0,10)+'/details=false',download) Descargar CSV
+                          a.btn.btn-outline-info(href='http://localhost:3000/'+data.estacion_id+'/'+data.sensor_id+'/download/'+medicion.Day.substring(0,10)+'/false',download) Descargar CSV

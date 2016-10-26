@@ -8,18 +8,33 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var json2csv = require('json2csv');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 
 var jwt = require('jsonwebtoken');
-var config = require('./config');
-var User = require('./models/user');
+//var config = require('./config');
+//var User = require('./models/user');
+var fs = require('fs');
+var users = [];
+fs.readFile('ddbb.in', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  usuarios = data.split(/\n/);
+  for (var i = 0; i< usuarios.length; i++)
+  {
+	  element = usuarios[i].split(",");
+	  users.push({
+		  user : element[0].replace(/(\r\n|\n|\r)/gm,""),
+		  password : element[1].replace(/(\r\n|\n|\r)/gm,""),
+	  });
+  }
+});
 
 
+//var port = process.env.PORT || 3000;
+//mongoose.connect(config.database);
 
-var port = process.env.PORT || 3000;
-mongoose.connect(config.database);
-
-app.set('superSecret', config.secret);
+//app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -56,6 +71,53 @@ var dictionary = {
   "fineparticulatematter" : ["Particulado menor a 2.5 micrones - PM2.5", "ug/m3"],
 }
 
+app.get('/', function(req, res){
+  res.render('login');
+});
+
+app.post('/login', function(req, res) {
+  authenticated = false;
+  for (var i = 0; i < users.length; i++) {
+	  if (users[i].user == req.body.usuario && users[i].password == req.body.password)
+	  {
+		  authenticated = true;
+		  console.log("Encontrado");
+	  }
+	  	
+  }
+
+    if (!authenticated) res.send("Error de usuario/contraseña");
+
+    else
+	{
+		var token = jwt.sign(req.body.usuario, "apra");
+		res.render('index', {token: token});
+	}
+});
+
+var apiRoutes = express.Router();
+
+apiRoutes.use(function(req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  if (token) {
+    jwt.verify(token, "apra", function(err, decoded) {      
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        req.decoded = decoded;    
+        next();
+      }
+    });
+
+  } else {
+    return res.status(403).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+    
+  }
+});
+
 function listApi(busq, lista, callback){
 	url = "http://bapocbulkserver.azurewebsites.net/api1/";
 	requestify.get(url+=busq).then(function(response){
@@ -75,22 +137,22 @@ function listApi(busq, lista, callback){
 		callback();
 	});
 }
-function addDays(date, days) {
-    var result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-}
+
+
 app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	var desde = new Date(req.params.from);
-	//desde = addDays(desde, 1);
 	var detalles = req.params.details;
-	console.log(req.params.from);
-	var fields = ['At', 'State', 'Active'];
 	if (detalles=="true")
+	{
+		var fields = ['At', 'State', 'Active'];
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
+	}
+		
 	else
+	{
+		var fields = ['At', 'State', 'Active', 'Max', 'Min'];
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
-	console.log(detalles);
+	}
 	listApi(get, "mediciones", function(){
 		var result = json2csv({ data: mediciones, fields: fields });
 		res.setHeader('Content-disposition', 'attachment; filename='+req.params.estacion + req.params.sensor + req.params.from + detalles +'.csv');
@@ -101,7 +163,7 @@ app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	});
 });
 
-app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
+apiRoutes.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(req, res){
 	var url = "http://bapocbulkserver.azurewebsites.net/api1/sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+req.params.accion+"/"+req.params.anio+"/"+req.params.mes+"/"+req.params.dia+"/"+req.params.hora+"/"+req.params.minuto;
 	requestify.post(url).then(function(response){
 		res.send(""+response.code+"");
@@ -109,7 +171,7 @@ app.post('/:estacion/:sensor/:accion/:anio/:mes/:dia/:hora/:minuto', function(re
 	});
 });
 
-app.get('/mediciones/:sensor/:estacion', function(req, res){
+apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 	var now = new Date();
 	if(req.query.mesanio){
 		date = req.query.mesanio.split("-");
@@ -218,8 +280,7 @@ app.get('/mediciones/:sensor/:estacion', function(req, res){
 	});
 });
 
-app.get('/sensores/:estacion', function(req, res){
-	console.log(req.params.estacion);
+apiRoutes.get('/sensores/:estacion', function(req, res){
 	listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
@@ -234,7 +295,7 @@ app.get('/sensores/:estacion', function(req, res){
 	});
 });
 
-app.get('/estacion', function(req, res){
+apiRoutes.get('/estacion', function(req, res){
 	listApi("stations", "estaciones", function(){
 		data = {
 					data : {
@@ -248,91 +309,16 @@ app.get('/estacion', function(req, res){
 	})
 });
 
-app.get('/promedioaqi', function(req, res) {
+apiRoutes.get('/promedioaqi', function(req, res) {
   		res.render('promedioaqi');
 });
 
-app.get('/index', function (req, res) {
+apiRoutes.get('/index', function (req, res) {
 		res.render('index');
 });
 
-app.get('/', function(req, res){
-  res.render('login');
-});
 
-// function setup para la creacion de usuario que luego se guardan en mongo, tome como base el ejemplo
-// jsonwebtoken
-
-//  app.get('/setup', function(req, res) {
-//
-//   var ezequiel = new User({
-//      usuario : 'Ezequiel',
-//      password : '123',
-//      admin: true
-//
-//    });
-//
-//   var admin = new User({
-//     usuario : 'admin',
-//     password : '123',
-//     admin: true
-//   });
-//
-//  ezequiel.save(function(err) {
-//    if (err) throw err;
-//  });
-//
-//   admin.save(function(err) {
-//     if (err) throw err;
-//   });
-//   res.json({ success: true });
-//
-//});
-
-
-var apiRoutes = express.Router();
-
-apiRoutes.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.json(users);
-  });
-});
-
-//app.use('/api', apiRoutes);
-
-app.post('/login', function(req, res) {
-  console.log('estoy en el login');
-  User.findOne({
-    usuario: req.body.usuario
-  }, function(err, user) {
-
-    if (err) throw err;
-
-    if (!user) {
-      res.json({ success: false, message: 'Usuario incorrecto vuelva a intentar' });
-    } else if (user) {
-
-      if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Password incorrecto vuelva a intentar' });
-      } else {
-
-        var token = jwt.sign(user, app.get('superSecret'), {
-          //expiresInMinutes: 1440
-        });
-
-        // res.json({
-        //   success: true,
-        //   message: 'Enjoy your token!',
-        //   token: token
-        // });
-
-        res.redirect('/index');
-      }
-
-    }
-  });
-});
-
+app.use('/', apiRoutes);
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Escuchando en el puerto "+ 3000);
