@@ -261,7 +261,7 @@ app.get('/', function(req, res){
 });
 
 // function setup para la creacion de usuario que luego se guardan en mongo, tome como base el ejemplo
-// jsonwebtoken 
+// jsonwebtoken
 
 //  app.get('/setup', function(req, res) {
 //
@@ -309,11 +309,11 @@ app.post('/login', function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
+      res.json({ success: false, message: 'Usuario incorrecto vuelva a intentar' });
     } else if (user) {
 
       if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        res.json({ success: false, message: 'Password incorrecto vuelva a intentar' });
       } else {
 
         var token = jwt.sign(user, app.get('superSecret'), {

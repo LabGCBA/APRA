@@ -27,23 +27,79 @@ html(lang='en')
                       a(href="#", onclick='getData("sensores/'+estacion.Id+'");')= dictionary[estacion.Id]
           .col-sm-10
             h2.moverh2 Descargar Estacion
-          .col-md-12
-              h2 Estaciones
+          .col-md-2(style='margin-top: 75px;')
               form
-                .checkbox
-                  label
-                    input(type='checkbox', value='')
-                    | Option 1
-                .checkbox
-                  label
-                    input(type='checkbox', value='')
-                    | Option 2
                 .checkbox.disabled
                   label
                     input(type='checkbox', value='')
-                    | Option 3
+                    | Cordoba
+                .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | Centenario
+                .checkbox.disabled
+                  label(style='width: 49%;')
+                    input(type='checkbox', value='')
+                    | La Boca
 
+          .col-md-2(style='margin-top: 75px;')
+              form
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='', ons)
+                    | PM10
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | PM25
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | CO
+                 .checkbox
+                  label
+                    input(type='checkbox', value='')
+                    | 03
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | NO2
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | NOX
+                 .checkbox.disabled
+                   label
+                     input(type='checkbox', value='')
+                     | SO2
+                 .checkbox.disabled
+                  label
+                    input(type='checkbox', value='')
+                    | H2S
 
+          .col-md-2(style='margin-top: 22px;')
+            tr
+              th(style='text-align:center;')
+                center(style='font-weight: 600;')
+                  | Horarios/Minutales:
+            tr
+              td
+                select(onchange='', name='estaciones', style='padding-right: 50px; margin-top:27px;')
+                  option(value='0', selected='selected')
+                  option(value='1') Horarios
+                  option(value='2') Minutales
+
+          .col-md-3(style='margin-top: 40px;')
+            form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
+              #fecha
+                label(for='FromDate') Ingresa Fecha:
+                #otro
+                  input(type='date', name='date')#FromDate
+          .col-md-3z(style='margin-top: 40px;')
+            form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?mesanio="+this.elements["mesanio"].value);')
+              #fecha
+                label(for='FromMonth',style='width: 75%;') Ingresar Mes o Año:
+                input(type='month', name='mesanio')#FromMonth
           .col-md-12
 
                 button.btn.btn-outline-success(type='button',style='margin-top: 70px;', onclick='getData("estacion");') Descargar

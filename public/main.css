@@ -214,7 +214,7 @@ line-height: 60px;
 }
 label{float: left;}
 
-/*MOBILE*/
+/*MOBILE
 
 @media screen and (max-width: 400px){
     .container{width: 50%;}
@@ -248,6 +248,7 @@ label{float: left;}
    .controlsensor{top: -50px; margin-left: -150px; padding-top: 30px;}
    hr{border-top: 0}
  }
+*/
 
 /*TABLET
 @media screen and (max-width: 720px){
@@ -287,6 +288,9 @@ form{
 }
 .moverh2{
   margin-top: 90px
+}
+moverh3{
+  margin-top: 20px;
 }
 label{margin-right: 900px;}
 .clase3{margin-right: 75px;}
