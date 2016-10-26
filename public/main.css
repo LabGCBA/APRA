@@ -3,7 +3,7 @@ body, html {
   font-family: 'Lato', sans-serif;
   font-size:14px;
   padding: 0px;
-  margin: 0px
+  margin: 0px;
   height: auto;
 }
 .container {
@@ -17,7 +17,8 @@ body, html {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  width: 150px; overflow-x:
+  width: 150px; 
+  overflow-x : auto;
 }
 #promedios {
   margin-left: auto;
