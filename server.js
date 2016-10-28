@@ -8,11 +8,7 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 var requestify = require('requestify');
 var json2csv = require('json2csv');
-//var mongoose = require('mongoose');
-
 var jwt = require('jsonwebtoken');
-//var config = require('./config');
-//var User = require('./models/user');
 var fs = require('fs');
 var users = [];
 fs.readFile('ddbb.in', 'utf8', function (err,data) {
@@ -30,11 +26,6 @@ fs.readFile('ddbb.in', 'utf8', function (err,data) {
   }
 });
 
-
-//var port = process.env.PORT || 3000;
-//mongoose.connect(config.database);
-
-//app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

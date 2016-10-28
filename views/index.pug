@@ -13,15 +13,16 @@ html
     link(href='main.css', rel='stylesheet', type='text/css')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
-      token = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
+      var tokenGot = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
+      console.log(tokenGot);
       $("#result").html("<div id='juntador'><div class='loader'></div></div>");
-      $.get("http://"+window.location.host+"/estacion", {token: token}, function(data){
+      $.get("http://"+window.location.host+"/estacion", {token: tokenGot}, function(data){
               $("#result").html(data);
               $('#side').height($(document).height()-1);
       });
       function getData(str){
             $("#result").html("<div></div>");
-            $.get("http://"+window.location.host+"/"+str, {token: token}, function(data){
+            $.get("http://"+window.location.host+"/"+str, {token: tokenGot}, function(data){
               $("#result").html(data);
               $('#side').height($(document).height());
             });
