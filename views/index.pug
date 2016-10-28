@@ -24,10 +24,11 @@ html
             $("#result").html("<div></div>");
             $.get("http://"+window.location.host+"/"+str, {token: tokenGot}, function(data){
               $("#result").html(data);
-              $('#side').height($(document).height());
+              $('#side').height($(document).height()-1);
             });
             window.scrollTo(0, 0);
             $("#result").html("<div id='juntador'><div class='loader'></div></div>");
+            $document.height() = 1000;
             return false;
       }
   body

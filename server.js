@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var mysql = require('mysql');
 var pug = require('pug');
 var bodyParser = require('body-parser');
 var aqi = require('./aqi');
@@ -101,7 +100,7 @@ apiRoutes.use(function(req, res, next) {
     });
 
   } else {
-    return res.status(403).send({ 
+    return res.send({ 
         success: false, 
         message: 'No token provided.' 
     });
