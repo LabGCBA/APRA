@@ -7,9 +7,8 @@ body, html {
   height: auto;
 }
 .container {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 100%;
 }
 #detalles {
   margin: 0px;
@@ -54,16 +53,46 @@ border-color: #ccc;
 .form-group select {
   margin-left: 0px;
 }
+
+#contenedor {
+  margin-top: 30px;
+  margin-bottom: 30px; 
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  align-content: center;
+}
+
+#contenedor select{
+  margin: 0;
+  width: 70%;
+  float: right;
+}
+
+#contenedor label {
+  margin: 0;
+  margin-right: 15px;
+  padding: 0;
+  width: auto;
+}
+
 #selector {
-  width: 385px;
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 15px;
   background-color: gainsboro;
-  height: 250px;
+  height: auto;
   margin-top: 10px;
   align-content: center;
+  padding-bottom: 15px;
 }
+
+#selector select {
+  display: block;
+  margin: 15 auto;
+}
+
 #selector label {
   margin-right: 10px;
 }
@@ -76,6 +105,16 @@ border-color: #ccc;
   width: 65%;
   padding-top: 20px;
   margin-top: 20px;
+}
+#fecha2 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  padding-bottom: 0px;
+}
+form{
+  padding-bottom: 0px;
+  border-radius: 0px;
 }
 #btnSubmit{
   width: 30%;
@@ -167,6 +206,16 @@ width: 100%;
   transition:1s ease;
   font-family: 'Lato', sans-serif;
 }
+
+#downloadd {
+  background-color: gray;
+  display: block;
+}
+
+#contaminantes input {
+  margin: 10px;
+}
+
 .sidebar a {
   text-decoration:none;
   color:white;
@@ -279,7 +328,7 @@ label{float: left;}
 
 }
 form{
-  margin-top:-59px;
+  padding: 0;
 }
 #formulario{
   margin-top: -220px;

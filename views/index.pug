@@ -14,21 +14,27 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato|Open+Sans')
     script.
       var tokenGot = JSON.parse("#{datos}".replace(/&quot;/g,'"'));
-      console.log(tokenGot);
       $("#result").html("<div id='juntador'><div class='loader'></div></div>");
       $.get("http://"+window.location.host+"/estacion", {token: tokenGot}, function(data){
               $("#result").html(data);
               $('#side').height($(document).height()-1);
       });
-      function getData(str){
-            $("#result").html("<div></div>");
-            $.get("http://"+window.location.host+"/"+str, {token: tokenGot}, function(data){
-              $("#result").html(data);
-              $('#side').height($(document).height()-1);
-            });
-            window.scrollTo(0, 0);
+      function getData(str, info = null){
+          window.scrollTo(0, 0);
             $("#result").html("<div id='juntador'><div class='loader'></div></div>");
-            $document.height() = 1000;
+            $.ajax({
+                url: "http://"+window.location.host+"/"+str,
+                type: "GET",
+                data: info,
+                headers: {'x-access-token': tokenGot},
+                success : function(data) {
+                  $("#result").html(data);
+                  $('#side').height($(document).height()-1); 
+                },
+                error: function(e) {
+                  console.log(e.message);
+                }
+            });
             return false;
       }
   body

@@ -271,6 +271,7 @@ apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 });
 
 apiRoutes.get('/sensores/:estacion', function(req, res){
+	console.log("Sensor");
 	listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {

@@ -21,28 +21,26 @@ html(lang='en')
       datosAyer = data.medicionesayer;
       function eliminarMedicion (timestamp){
         var date = new Date(Date.parse(timestamp)+10800000);
-          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: token},function( data ) {
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/delete/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: tokenGot},function( data ) {
             if(data == "202"){
               alert("Registro eliminado");
             }
             else {
               alert("No se pudo eliminar");
             }
-            console.log('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
-            getData('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+            getData('mediciones/'+sensor+'/'+estacion, {"date" : ((datosMed[0]).At).substring(0,10), 'details' : true});
         });
       }
        function agregarMedicion (timestamp){
         var date = new Date(Date.parse(timestamp)+10800000);
-          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/add/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: token},function( data ) {
+          $.post("http://"+window.location.host+"/"+data.estacion_id+"/"+data.sensor_id+"/add/"+date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+"/"+date.getHours()+"/"+date.getMinutes(), {token: tokenGot},function( data ) {
             if(data == "202"){
               alert("Registro agregado");
             }
             else {
               alert("No se pudo agregar");
             }
-            console.log('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
-            getData('mediciones/'+sensor+'/'+estacion+'/?date='+((datosMed[0]).At).substring(0,10)+'&details=true');
+            getData('mediciones/'+sensor+'/'+estacion, {"date" : ((datosMed[0]).At).substring(0,10), 'details' : true});
         });
       }
       $(document).ready( function() {
@@ -86,87 +84,49 @@ html(lang='en')
                   $('#FromDate').attr("value", today);
                   $('#FromMonth').attr("value", tomonth);
               });
-      buscarProm(1);
-      function buscarProm(cant){
-        if(!dias)
-          datosMed = data.medicioneshoy;
-        horas = datosMed.length;
-        long = datosMed.length;
-        if (cant <= horas){
-          var tot = 0;
-          for(i = long-1; i >= long-cant; i--){
-            tot += datosMed[i].State;
-          }
-          var prom = tot/(cant);
-          $("#valor").val(prom.toFixed(2) + " " + (data.dictionary[sensor])[1]);
-        }
-        else {
-          var tot = 0;
-          longayer = datosAyer.length;
-          for(i = long-1; i >= 0; i--){
-            tot += datosMed[i].State;
-          }
-          for(i=longayer-1; i >= longayer - (cant-long); i--){
-            tot += datosAyer[i].State;
-          }
-          var prom = tot /(cant);
-          $("#valor").val(prom.toFixed(2) + " " + (data.dictionary[sensor])[1]);
-        }
-      }
   body
     .container
       h1.claseh1(style='margin-right: 56px;')= (dictionary[data.estacion_id])
       h2.claseh2= dictionary[data.sensor_id][0]
-      if(data.today)
-        #promedios
-              control-label Promedios:
-              select.prome(onchange='buscarProm(this.options[this.selectedIndex].value)')
-                option(value=1) Última hora
-                option(value=3) Últimas 3 hs
-                option(value=8) Últimas 8 hs
-                option(value=12) Últimas 12 hs
-                option(value=24) Últimas 24 hs
-              input(type="text", disabled)#valor
       if (data.fecha)
         #chart
       .row
         if (data.details)
-          button.btn.btn-primary(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.fecha+'");')#atras Atras
+          button.btn.btn-primary(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'", {"date" : "'+data.fecha+'"});')#atras Atras
         else if (data.fecha)
           if (data.details)
           button.btn.btn-primary(type='button', onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'");')#atras Atras
         else
           button.btn.btn-primary(type='button', onclick='getData("sensores/'+data.estacion_id+'");')#atras Atras
-        .form-group(style='margin-top: 50px; margin-left:-90px;')
-          label.col-sm-2.control-label.controlsensor(for='inputPassword') Contaminante
-          .col-sm-10(style='top: -82px;')
+      #contenedor
+            label(for='inputPassword') Contaminante
             select(onchange='getData("mediciones/"+this.options[this.selectedIndex].value+"/'+data.estacion_id+'");', style='margin-bottom:0px;').form-control.selectsensor
-              for sensor in data.sensores
-                if data.sensor_id == sensor.Id
-                  option(value=sensor.Id, selected)= dictionary[sensor.Id][0]
-                else
-                  option(value=sensor.Id)= dictionary[sensor.Id][0]
-          .col-md-12
+                for sensor in data.sensores
+                  if data.sensor_id == sensor.Id
+                    option(value=sensor.Id, selected)= dictionary[sensor.Id][0]
+                  else
+                    option(value=sensor.Id)= dictionary[sensor.Id][0]
+      .col-md-12
             #selector
-                form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date="+this.elements["date"].value);')
+                form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'", {"date" : this.elements["date"].value});')
                   #fecha
                     label(for='FromDate') Ingresa Fecha:
                     #otro
                       input(type='date', name='date')#FromDate
                       input#btnSubmit.btn.btn-outline-success(type='submit',value='Buscar')
                 br
-                form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?mesanio="+this.elements["mesanio"].value);')
-                  #fecha
+                form(onsubmit='return getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'", {"mesanio" : this.elements["mesanio"].value});')
+                  #fecha2
                     label(for='FromMonth') Ingresar Mes o Año:
                     input(type='month', name='mesanio')#FromMonth
 
                     input#btnSubmit.btn.btn-outline-success(type='submit',value='Buscar')
 
-          span.ir-arriba.icon-arrow-up
-          .col-md-12
+      span.ir-arriba.icon-arrow-up
+      .col-md-12
 
             if(data.fecha && !data.details)
-                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+data.mediciones[0].At.substring(0,10)+'&details=true");').btn.btn-outline-info Detalles del día
+                button#detalles(onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'" , {"date" : "'+data.fecha+'" , "details" : true});').btn.btn-outline-info Detalles del día
 
             if(data.fecha)
               if(data.details)
@@ -195,7 +155,7 @@ html(lang='en')
                     tr
                       td
                         if(medicion.Day)
-                          a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'/?date='+medicion.Day.substring(0,10)+'");')= medicion.Day.substring(0,10)
+                          a(href="#", onclick='getData("mediciones/'+data.sensor_id+'/'+data.estacion_id+'", {"date" : "'+medicion.Day.substring(0,10)+'"});')= medicion.Day.substring(0,10)
                         else
                           = medicion.At.substring(11,16)
                       td= medicion.State.toFixed(2)
