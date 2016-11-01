@@ -15,10 +15,9 @@ html(lang='en')
       h2.moverizquierda= dictionary[data.estacion_id]
       .row(style='margin-right= 0px;')
         button.btn.btn-primary(type='button', onclick='getData("estacion");')#atras Atras
-        .form-group(style='margin-top:100px; margin-left:-90px;')
-          label.col-sm-2.control-label.moversubir(for='inputPassword', style='') ESTACIÓN
-          .col-sm-10
-            select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control.medida
+      #contenedor
+          label(for='inputPassword') ESTACIÓN
+          select(onchange='getData("sensores/"+this.options[this.selectedIndex].value);').form-control.selectsensor
               if(data.estacion_id=='la_boca')
                 option(value='la_boca', selected) La Boca
               else
@@ -31,6 +30,7 @@ html(lang='en')
                 option(value='cordoba', selected) Cordoba
               else
                 option(value='cordoba') Cordoba
+      .col-md-12
           #contacts
             table.table.table-bordered
               thead
@@ -41,35 +41,3 @@ html(lang='en')
                   tr
                     td
                       a(href="#", onclick='getData("mediciones/'+sensor.Id+'/'+data.estacion_id+'");')= (dictionary[sensor.Id])[0]
-          .col-sm-10
-            h2 Añadir Sensor
-          .col-md-12
-            button.btn.btn-outline-info(type='button', data-toggle='collapse', data-target='#demo') PULSAR
-            #demo.collapse
-             form(action='url', method='POST')
-              .form-group
-                label(for='', style='margin-top:90px;') Sensor_ID
-                input.form-control(type='', id='', placeholder='')
-              .form-group
-                label.cambiar(for='') Nombre (CO, NOx, etc.)
-                input.form-control(type='', id='', placeholder='')
-              .form-group
-                label(for='') Unidad
-                input.form-control(type='', id='', placeholder='')
-              .form-group
-                label(for='') Estacion_ID
-                select.form-control(type='', id='', placeholder='')
-                  if(data.estacion_id=='la_boca')
-                    option(value='la_boca', selected) La Boca
-                  else
-                    option(value='la_boca') La Boca
-                  if (data.estacion_id=='centenario')
-                    option(value='centenario', selected) Centenario
-                  else
-                    option(value='centenario') Centenario
-                  if(data.estacion_id=='cordoba')
-                    option(value='cordoba', selected) Cordoba
-                  else
-                    option(value='cordoba') Cordoba
-              .center-block()
-                button.btn.btn-outline-success(type='submit', style='margin-right:-80;') Añadir Sensor

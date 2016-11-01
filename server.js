@@ -2,9 +2,8 @@ var express = require('express');
 var app = express();
 var pug = require('pug');
 var bodyParser = require('body-parser');
-var aqi = require('./aqi');
 app.set('view engine', 'pug');
-app.use(express.static('public'));
+
 var requestify = require('requestify');
 var json2csv = require('json2csv');
 var jwt = require('jsonwebtoken');
@@ -28,7 +27,7 @@ fs.readFile('ddbb.in', 'utf8', function (err,data) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(express.static('public'));
 
 
 
@@ -71,7 +70,6 @@ app.post('/login', function(req, res) {
 	  if (users[i].user == req.body.usuario && users[i].password == req.body.password)
 	  {
 		  authenticated = true;
-		  console.log("Encontrado");
 	  }
 	  	
   }
@@ -168,10 +166,6 @@ apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 		anio = date[0];
 		mes = date[1];
 		detalles = false;
-		if (anio==now.getFullYear() && mes == now.getMonth()+1)
-			today = true;
-		else
-			today=false;
 		prom = true;
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes;
 	}
@@ -181,15 +175,10 @@ apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 		anio = date[0];
 		mes = date[1];
 		dia = date[2];
-		if (anio==now.getFullYear() && mes == now.getMonth()+1 && dia == now.getDate())
-			today = true;
-		else
-			today = false;
 		prom = true;
 		if(req.query.details){
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" +anio+"/"+mes+"/"+dia;
 			detalles = true;
-			today = false;
 		}
 		else{
 			get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/" +anio+"/"+mes+"/"+dia;
@@ -202,76 +191,27 @@ apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 		dia = now.getDate();
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+(now.getMonth()+1);
 		detalles = false;
-		today = true;
 	}
 	listApi(get, "mediciones", function(){
-		if (today){
-			get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+mes+"/"+(dia-1);
-			listApi(get, "medicionesayer", function(){
-				if (!req.query.date){
-					get = "sensors/"+req.params.estacion+"/"+req.params.sensor+"/"+anio+"/"+mes+"/"+dia;
-					listApi(get, "medicioneshoy", function(){
-						data = {
-						data : {
-						fecha : req.query.date,
-						details : detalles,
-						sensor_id : req.params.sensor,
-						estacion_id : req.params.estacion,
-						estaciones : estaciones,
-						sensores : sensores,
-						mediciones : mediciones,
-						medicioneshoy : medicioneshoy,
-						medicionesayer : medicionesayer,
-						today : today,
-						dictionary : dictionary,
-						}
-					};
-					res.render('medicion', data);
-					});
-				}
-				else{
-					data = {
-						data : {
-						fecha : req.query.date,
-						details : detalles,
-						sensor_id : req.params.sensor,
-						estacion_id : req.params.estacion,
-						estaciones : estaciones,
-						sensores : sensores,
-						mediciones : mediciones,
-						medicioneshoy : medicioneshoy,
-						medicionesayer : medicionesayer,
-						today : today,
-						dictionary : dictionary,
-						}
-					};
-					res.render('medicion', data);
-				}
-
-		});
-		}
-		else {
-			data = {
-					data : {
-					fecha : req.query.date,
-					details : detalles,
-					sensor_id : req.params.sensor,
-					estacion_id : req.params.estacion,
-					estaciones : estaciones,
-					sensores : sensores,
-					mediciones : mediciones,
-					medicionesayer : medicionesayer,
-					today : today,
-					dictionary : dictionary,
-					}
-			};
-	 		res.render('medicion', data);
-		}
+		data = {
+			data : {
+				fecha : req.query.date,
+				details : detalles,
+				sensor_id : req.params.sensor,
+				estacion_id : req.params.estacion,
+				estaciones : estaciones,
+				sensores : sensores,
+				mediciones : mediciones,
+				medicioneshoy : medicioneshoy,
+				medicionesayer : medicionesayer,
+				dictionary : dictionary,
+			}
+		};
+	res.render('medicion', data);
 	});
 });
 
 apiRoutes.get('/sensores/:estacion', function(req, res){
-	console.log("Sensor");
 	listApi("stations/"+req.params.estacion, "sensores", function(){
 		data = {
 					data : {
