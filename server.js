@@ -126,6 +126,30 @@ function listApi(busq, lista, callback){
 	});
 }
 
+app.get('/download', function(req,res){
+	get = "sensors/" + req.query.estacion + "/" + (Array.isArray(req.query.pm10) ? req.query.pm10[1] : req.query.pm10) + "/" + (Array.isArray(req.query.pm25) ? req.query.pm25[1] : req.query.pm25) + "/" +
+		(Array.isArray(req.query.co) ? req.query.co[1] : req.query.co) + "/" + (Array.isArray(req.query.o3) ? req.query.o3[1] : req.query.o3) + "/" + (Array.isArray(req.query.no2) ? req.query.no2[1] : req.query.no2) + "/" + (Array.isArray(req.query.nox) ? req.query.nox[1] : req.query.nox) +
+		"/" + (Array.isArray(req.query.so2) ? req.query.so2[1] : req.query.so2) + "/" + (Array.isArray(req.query.h2s) ? req.query.h2s[1] : req.query.h2s) + "/" + (Array.isArray(req.query.no) ? req.query.no[1] : req.query.no) + "/" + req.query.fromDate + "/" + req.query.toDate;
+	var fields = [];
+	if(req.query.details == 'true'){
+		get += "/details";
+		fields = ["At", "sensorId", "State", "Active"];
+	}
+	else 
+	{
+		fields = ["At", "sensorId", "State", "Active", "Max", "Min", "EightHour", "FullDay"];
+	}
+	console.log(get);
+	listApi(get, "mediciones", function(){
+		var result = json2csv({ data: mediciones, fields: fields });
+		res.setHeader('Content-disposition', 'attachment; filename=downloadedData.csv');
+		res.setHeader('Content-type', 'text/plain');
+		console.log("Procesado!");
+		res.charset = 'UTF-8';
+		res.write(result);
+		res.end();
+	});
+});
 
 app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	var desde = new Date(req.params.from);
