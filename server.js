@@ -3,7 +3,7 @@ var app = express();
 var pug = require('pug');
 var bodyParser = require('body-parser');
 app.set('view engine', 'pug');
-
+var aqi = require("./aqi.js");
 var requestify = require('requestify');
 var json2csv = require('json2csv');
 var jwt = require('jsonwebtoken');
@@ -34,8 +34,7 @@ app.use(express.static('public'));
 var estaciones = [];
 var sensores = [];
 var mediciones = [];
-var medicionesayer = [];
-var medicioneshoy = [];
+
 var dictionary = {
   "laboca" : "La Boca",
   "cordoba" : "Córdoba",
@@ -62,6 +61,34 @@ var dictionary = {
 
 app.get('/', function(req, res){
   res.render('login');
+});
+
+app.get('/calcularAqi', function(req,res){
+	var now = new Date();
+	var prom = 0.0;
+	var get= "sensors/" + req.query.estacion + "/" + req.query.polucion + "/" + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate();
+	listApi(get, "mediciones", function(){
+		var result;
+		if (mediciones.length == 0)
+			result = "Error";
+		else
+		{
+			switch(req.query.polucion)
+			{
+				case "sulfurdioxide" : 
+				case "fineparticulatematter" : 
+				case "particulatematter":
+					prom = mediciones[mediciones.length - 1].FullDay;
+					break;
+				case "ozon" :
+				case "nitricdioxide":
+				case "carbonoxide" :
+					prom =  mediciones[mediciones.length - 1].EightHour;
+			}
+			result = aqi.calcularAqi(prom, req.query.polucion);
+		}
+		res.json({aqi : result});
+	});
 });
 
 app.post('/login', function(req, res) {

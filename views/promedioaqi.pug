@@ -3,80 +3,86 @@ html
   head
     meta(charset='utf-8')
     title Aqi promedio
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u', crossorigin='anonymous')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa', crossorigin='anonymous')
-    link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet')
-    link(rel='stylesheet', href='promedioaqi.css')
+    script.
+      $('#aqi').submit(function(e){
+          e.preventDefault();
+          $.ajax({
+            url: 'http://'+window.location.host+"/calcularAqi",
+            data: $(this).serialize(),
+            success: function(data)
+            {
+              console.log(data);
+              $("#resultAqi").text("El AQI es de: " + (typeof data.aqi == 'string' ? data.aqi : data.aqi.toFixed(1)));
+              if (data.aqi <= 50)
+                $("#resultAqi").css({'background-color' : 'green'})
+              else if (data.aqi <= 100 )
+              $("#resultAqi").css({'background-color' : 'yellow'})
+              else if (data.aqi <= 150 )
+              $("#resultAqi").css({'background-color' : 'orange'})
+              else if (data.aqi <= 200 )
+              $("#resultAqi").css({'background-color' : 'red'})
+              else if (data.aqi <= 300 )
+              $("#resultAqi").css({'background-color' : '#800080'})
+              else
+              $("#resultAqi").css({'background-color' : 'darkgray'})
+            }
+          });
+        });
   body
     .caja_superior
       h1 Promedio AQI
     .container
-      form(name='form1', style='margin-top: 65px;')
-        table(style='padding:5px; float:right;')
-          tr
-            td
-          tr
-            th(style='text-align:center')
-              center
-                | Selecionar Polucion
-          tr
-            td
-              select(onchange='', name='polucion', style='padding-right: 24px;')
+      form(name="aqi",type="get", action="http://localhost:3000/calcularAqi")#aqi
+        label Selecionar Polucion  
+        select(name='polucion')
                 option(value='0', selected='selected')
-                option(value='1') PM25 - Particulate 2.5
-                option(value='2') PM10 - Particulate 10
-                option(value='3') CO - Carbon Monoxide
-                option(value='4') SO2 - Sulfur Dioxide
-                option(value='5') O3 - Ozone
-                option(value='6') NO2 - Nitrogen Dioxide
-        form(name='form2')
-          table(style='padding:5px')
-            tr
-              td
-            tr
-              th(style='text-align:center')
-                center
-                  | Selecionar Estacion
-            tr
-              td
-                select(onchange='', name='estaciones', style='padding-right: 50px;')
+                option(value='fineparticulatematter') PM25 - Particulate 2.5
+                option(value='particulatematter') PM10 - Particulate 10
+                option(value='carbonoxide') CO - Carbon Monoxide
+                option(value='sulfurdioxide') SO2 - Sulfur Dioxide
+                option(value='ozon') O3 - Ozone
+                option(value='nitricdioxide') NO2 - Nitrogen Dioxide
+                option(value='mononitrogenoxide') NOx - Mononitrogen Dioxide
+                option(value='nitricoxide') NO - Nitrogen Oxide
+        label Selecionar Estacion
+        select(name='estacion')
                   option(value='0', selected='selected')
-                  option(value='1') Centenario
-                  option(value='2') Cordoba
-                  option(value='3') La Boca
-    .container(style='margin-top: 115px; margin-left: -118px;')
-      button.btn.btn-outline-success(type='button') Consultar
-      textarea.form-control(rows='3', style='margin-left: 100px; margin-top: 35px;')
+                  option(value='centenario') Centenario
+                  option(value='cordoba') Cordoba
+                  option(value='laboca') La Boca
+        .text-center
+          input.btn.btn-outline-success(type='submit', value="Consultar")
       
     .table.table-reflow
+      h2#resultAqi(name="resultAqi", style="margin-bottom: 50px;") El AQI es de: 
       table.table
         thead(style='background-color: darkgrey;')
           tr
-            th AQI
+            th(style='width: 100px;') AQI
             th Clasificacion
             th Precauciones para Protegerse del Ozono
         tbody
           tr
-            th(scope='row') 0 - 50
+            td 0 - 50
             td(style='background-color: green;') Buena
-            th Ninguna.
+            td Ninguna.
           tr
-            th(scope='row') 51 - 100
+            td 51 - 100
             td(style='background-color: yellow;') Moderada
-            th
+            td
               | Las personas extraordinariamente sensitivas deben considerar limitar los esfuerzos prolongados al aire libre.
           tr
-            th(scope='row') 101 - 150
+            td 101 - 150
             td(style='background-color: orange;') Dañina a la Salud de los Grupos Sensitivos
-            th
+            td
               | Los niños y adultos activos, y las personas con enfermedades respiratorias, tales como el asthma, deven limitar los esfuerzos prologados al aire libre.
           tr
-            th(scope='row') 151 - 200
+            td 151 - 200
             td(style='background-color: red;') Dañina a la Salud
-            th
+            td
               | Los niños y adultos activos, y las personas con enfermedades respiratorias, tales como el asthma, deben evitar el esfuerzo prolongado al aire libre; todos los demas, especialmente los niños, deben limitar el esfuerzo prolongado al aire libre.
           tr
-            th(scope='row') 201 - 300
+            td 201 - 300
             td(style='background-color: #800080;') Muy Dañina a la Salud
-            th
+            td
               | Los niños y adultos activos, y las personas con enfermedades respiratorias tales como el asthma, deben evitar cualquier esfuerzo al aire libre; todos los demas, especialmente los niños, deben limitar los esfuerzos al aire libre.

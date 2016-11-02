@@ -1,14 +1,30 @@
-module.exports = {
-    calcularAqi : calcularAqi
-};
-function calcularAqi(prom, parametro){
-	var ozone = {
+var exports = module.exports = {};
+exports.calcularAqi = function(prom, parametro){
+	var ozone1 = {
 		HI : {
 			0.064 : 50,
 			0.084 : 100,
 			0.104 : 150,
 			0.124 : 200,
 			0.374 : 300,
+		},
+		LO : {
+			0.000 : 0,
+			0.065 : 51,
+			0.085 : 101,
+			0.105 : 151,
+			0.125 : 201,
+			0.375 : 301
+		}
+	}
+
+	var ozone8 = {
+		HI : {
+			0.164 : 150,
+			0.204 : 200,
+			0.404 : 300,
+			0.504 : 400,
+			0.604 : 500,
 		},
 		LO : {
 			0.000 : 0,
@@ -134,7 +150,7 @@ function calcularAqi(prom, parametro){
 			}
 		break;
 
-		case "particulatematter10" :
+		case "particulatematter" :
 			for (key in particulatematter10.HI){
 				if (prom <= key){
 					bphi = key;
@@ -153,7 +169,7 @@ function calcularAqi(prom, parametro){
 			}
 		break;
 
-		case "particulatematter25" :
+		case "fineparticulatematter" :
 			for (key in particulatematter25.HI){
 				if (prom <= key){
 					bphi = key;
@@ -191,7 +207,7 @@ function calcularAqi(prom, parametro){
 			}
 		break;
 
-		case "sulfuroxide" :
+		case "sulfurdioxide" :
 			for (key in sulfuroxide.HI){
 				if (prom <= key){
 					bphi = key;
