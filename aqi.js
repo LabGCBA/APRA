@@ -1,6 +1,11 @@
 var exports = module.exports = {};
-exports.calcularAqi = function(prom, parametro){
-	var ozone1 = {
+function ordenar(a, b){
+	return b-a;
+}
+
+exports.calcularAqi = function (prom, parametro){
+	
+	var ozone = {
 		HI : {
 			0.064 : 50,
 			0.084 : 100,
@@ -140,7 +145,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(ozone.LO);
-			keys.sort((a,b)=>b-a);
+			//keys.sort((a,b) => (b-a));
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -159,7 +164,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(particulatematter10.LO);
-			keys.sort((a,b)=>b-a);
+			keys.sort(ordenar);
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -178,7 +183,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(particulatematter25.LO);
-			keys.sort((a,b)=>b-a);
+			keys.sort(ordenar);
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -197,7 +202,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(carbonoxide.LO);
-			keys.sort((a,b)=>b-a);
+			keys.sort(ordenar);
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -216,7 +221,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(sulfuroxide.LO);
-			keys.sort((a,b)=>b-a);
+			keys.sort(ordenar);
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -235,7 +240,7 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 			var keys = Object.keys(nitricdioxide.LO);
-			keys.sort((a,b)=>b-a);
+			keys.sort(ordenar);
 			for (var i = 0; i < keys.length; i++){
 				if (prom >= keys[i]){
 					bplo = keys[i];
@@ -244,9 +249,9 @@ exports.calcularAqi = function(prom, parametro){
 				}
 			}
 		break;
-
 	}
 
 	aqi = (((ihi-ilo)/(bphi-bplo))*(prom-bplo))+ilo;
     return aqi;	
 }
+
