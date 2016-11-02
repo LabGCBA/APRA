@@ -28,37 +28,48 @@ html(lang='en')
     h2 Descargar Estacion
     .col-md-12
             #selector
-                form(onsubmit='')
+                form(method="get", action="http://localhost:3000/download")
                   #fecha
                     label(for='FromDate') Desde Fecha:
                     #otro
-                      input(type='date', name='date')#FromDate
+                      input(type='date', name='fromDate')#FromDate
                   #fecha
                     label(for='ToDate') Hasta Fecha:
                     #otro
-                      input(type='date', name='date')#FromDate
-                  select
-                      option Cordoba
-                      option Centenario
-                      option La Boca
+                      input(type='date', name='toDate')#FromDate
+                  select(name='estacion')
+                      option(value='cordoba') Cordoba
+                      option(value='centenario') Centenario
+                      option(value='laboca') La Boca
                   #contaminantes
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='pm10', value='false')
+                        input(type='checkbox',name='pm10', value='true')
                         | PM10
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='pm25', value='false')
+                        input(type='checkbox',name='pm25', value='true')
                         | PM25
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='co', value='false')
+                        input(type='checkbox',name='co', value='true')
                         | CO
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='o3', value='false')
+                        input(type='checkbox',name='o3', value='true')
                         | 03
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='no2', value='false')
+                        input(type='checkbox',name='no2', value='true')
                         | NO2
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='nox', value='false')
+                        input(type='checkbox',name='nox', value='true')
                         | NOX
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='so2', value='false')
+                        input(type='checkbox',name='so2', value='true')
                         | SO2
-                        input(type='checkbox', value='')
+                        input(type='hidden',name='h2s', value='false')
+                        input(type='checkbox', name='h2s', value='true')
                         | H2S
-                  select(onchange='', name='estaciones')
-                      option(value='1', selected) Horarios
-                      option(value='2') Minutales
-                  button.btn.btn-outline-success(type='button') Descargar
+                        input(type='hidden',name='no', value='false')
+                        input(type='checkbox', name='no', value='true')
+                        | NO
+                  select(name='details')
+                      option(value='false', selected) Horarios
+                      option(value='true') Minutales
+                  input.btn.btn-outline-success(type='submit', value="Descargar")
