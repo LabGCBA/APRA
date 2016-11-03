@@ -85,7 +85,7 @@ app.get('/calcularAqi', function(req,res){
 				case "carbonoxide" :
 					prom =  mediciones[mediciones.length - 1].EightHour;
 			}
-			result = caqi.alcularAqi(prom, req.query.polucion);
+			result = aqi.calcularAqi(prom, req.query.polucion);
 		}
 		res.json({aqi : result});
 	});
