@@ -144,11 +144,6 @@ function listApi(busq, lista, callback){
 				break;
 			case "mediciones" : mediciones = response.getBody();
 				break;
-			case "medicionesayer" : medicionesayer = response.getBody();
-				break;
-			case "medicioneshoy" : medicioneshoy = response.getBody();
-				break;
-			case "promedioaqi" : promedioaqi = response.getBody();
 		}
 		callback();
 	});
@@ -254,8 +249,6 @@ apiRoutes.get('/mediciones/:sensor/:estacion', function(req, res){
 				estaciones : estaciones,
 				sensores : sensores,
 				mediciones : mediciones,
-				medicioneshoy : medicioneshoy,
-				medicionesayer : medicionesayer,
 				dictionary : dictionary,
 			}
 		};
