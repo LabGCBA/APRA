@@ -29,7 +29,6 @@ html
                 headers: {'x-access-token': tokenGot},
                 success : function(data) {
                   $("#result").html(data);
-                  $('#side').height($(document).height()-1); 
                 },
                 error: function(e) {
                   console.log(e.message);

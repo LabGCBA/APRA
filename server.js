@@ -177,7 +177,7 @@ app.get('/download', function(req,res){
 app.get('/:estacion/:sensor/download/:from/:details', function(req, res){
 	var desde = new Date(req.params.from);
 	var detalles = req.params.details;
-	if (detalles=="true")
+	if (detalles)
 	{
 		var fields = ['At', 'State', 'Active'];
 		get = "sensors/"+req.params.estacion+"/"+req.params.sensor + "/detail/" + desde.getFullYear() + "/" + (desde.getMonth()+1) + "/" + desde.getDate();
